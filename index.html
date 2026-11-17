@@ -614,11 +614,11 @@
 
       <button
         type="button"
-        data-categoria="Chaveiros"
+        data-categoria="Chaveiros de Acrílico"
         aria-pressed="false"
         aria-controls="catalogo"
       >
-        🔑 Chaveiros
+        🔑 Chaveiros de Acrílico
       </button>
 
       <button
@@ -632,11 +632,20 @@
 
       <button
         type="button"
-        data-categoria="Outros"
+        data-categoria="Bottons"
         aria-pressed="false"
         aria-controls="catalogo"
       >
-        🎁 Outros
+        🎁 Bottons
+      </button>
+
+      <button
+        type="button"
+        data-categoria="Papelaria"
+        aria-pressed="false"
+        aria-controls="catalogo"
+      >
+        📎 Papelaria
       </button>
     </nav>
 
@@ -645,7 +654,7 @@
     <nav
       id="subcategorias"
       class="subcategorias"
-      aria-label="Subcategorias de chaveiros"
+      aria-label="Subcategorias de chaveiros de acrílico"
       hidden
     ></nav>
 
@@ -668,8 +677,8 @@
   </main>
 
   <footer>
-    <p>Universo Pixelado ✦</p>
-    <p>Catálogo de produtos — sem compras pelo site.</p>
+    <p>✦ Universo Pixelado ✦</p>
+    <p>✦ Catálogo de produtos — sem compras pelo site. ✦</p>
   </footer>
 
   <!-- ====================================
@@ -712,7 +721,9 @@
     const subcategoriasChaveiros = [
       "Time de Futebol",
       "Pokémon",
-      "Capa de Disco de Vinil"
+      "Capa de Disco de Vinil",
+      "Fita Super Nintendo",
+      "Marca de Automóveis"
     ];
 
     /* ==========================================
@@ -752,7 +763,7 @@
     const produtos = [
       {
         nome: "Manchester City",
-        categoria: "Chaveiros",
+        categoria: "Chaveiros de Acrílico",
         subcategoria: "Time de Futebol",
 
         descricao: `🧵 MATERIAL: Acrílico transparente
@@ -787,21 +798,39 @@
       },
 
       {
-        nome: "Chaveiro Pikachu",
-        categoria: "Chaveiros",
-        subcategoria: "Pokémon",
+        nome: "Palmeiras",
+        categoria: "Chaveiros de Acrílico",
+        subcategoria: "Time de Futebol",
 
-        descricao: `⚡ Chaveiro Pikachu
-
+        descricao: `🧵 MATERIAL: Acrílico transparente
+📏 TAMANHO: 3,4cm de comprimento x 4cm de altura
+🔎 ESPESSURA DO ACRÍLICO: 4mm
 📦 QUANTIDADE: 1 chaveiro
 
-✨ Adicione aqui o material, as medidas e outras informações do seu produto.`,
+📣 AVISO: Cada chaveiro pode apresentar leves alterações nos tons das cores, por se tratar de uma fabricação artesanal. ✨`,
 
-        preco: 18.90,
-        estoque: 5,
-        emoji: "⚡",
+        preco: 15.00,
+        estoque: 1,
+        emoji: "⚽",
 
-        midias: []
+        midias: [
+          {
+            tipo: "imagem",
+            arquivo: "imagens/palmeiras1.jpeg"
+          },
+          {
+            tipo: "imagem",
+            arquivo: "imagens/palmeiras2.jpeg"
+          },
+          {
+            tipo: "imagem",
+            arquivo: "imagens/palmeiras3.jpeg"
+          },
+          {
+            tipo: "video",
+            arquivo: "videos/palmeiras.mp4"
+          }
+        ]
       },
 
       {
