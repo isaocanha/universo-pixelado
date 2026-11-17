@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+        content="Conheça o catálogo da Universo Pixelado: chaveiros, adesivos e outros produtos.">
+
+  <title>Universo Pixelado | Catálogo</title>
+
+  <style>
+    :root {
+      --fundo: #faf7ff;
+      --texto: #302448;
+      --suave: #756885;
+      --roxo: #7544c6;
+      --borda: #e9def5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--fundo);
+      color: var(--texto);
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 48px 20px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 15% 20%, #ffffff80, transparent 35%),
+        linear-gradient(135deg, #e5d4ff, #ffe1ef);
+      border-bottom: 3px solid var(--borda);
+    }
+
+    .marca {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .logo {
+      width: 84px;
+      height: 84px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      background: white;
+      border: 3px solid var(--roxo);
+      border-radius: 20px;
+      box-shadow: 5px 5px 0 #7544c630;
+      font-size: 40px;
+      overflow: hidden;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(26px, 5vw, 42px);
+      letter-spacing: -1px;
+    }
+
+    .subtitulo {
+      margin: 6px 0 0;
+      color: #614a7b;
+    }
+
+    .apresentacao {
+      margin: 24px auto 0;
+      max-width: 550px;
+    }
+
+    main {
+      width: min(1100px, 100%);
+      margin: auto;
+      padding: 32px 20px 48px;
+    }
+
+    .filtros {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .filtros button {
+      padding: 12px 20px;
+      background: white;
+      color: var(--roxo);
+      border: 2px solid var(--borda);
+      border-radius: 12px;
+      font: inherit;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+
+    .filtros button:hover {
+      background: #f0e7ff;
+      transform: translateY(-2px);
+    }
+
+    .filtros button[aria-pressed="true"] {
+      background: var(--roxo);
+      border-color: var(--roxo);
+      color: white;
+    }
+
+    button:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid #c62e7a;
+      outline-offset: 4px;
+    }
+
+    .resumo {
+      margin-bottom: 20px;
+      color: var(--suave);
+      text-align: center;
+    }
+
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+
+    .produto {
+      background: white;
+      border: 1px solid var(--borda);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px #30244808;
+    }
+
+    .foto,
+    .sem-foto {
+      width: 100%;
+      aspect-ratio: 1;
+      display: block;
+    }
+
+    .foto {
+      object-fit: contain;
+      background: #f4edff;
+    }
+
+    .sem-foto {
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #f0e5ff, #ffeaf3);
+      font-size: 70px;
+    }
+
+    .informacoes { padding: 20px; }
+
+    .categoria {
+      color: var(--roxo);
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      margin: 8px 0;
+      font-size: 20px;
+    }
+
+    .descricao {
+      color: var(--suave);
+      font-size: 14px;
+      white-space: pre-line;
+    }
+
+    .preco {
+      margin: 16px 0 10px;
+      color: var(--roxo);
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .estoque {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: #e9f8ef;
+      color: #23623d;
+      font-size: 13px;
+    }
+
+    .esgotado {
+      background: #fff0f0;
+      color: #9b3434;
+    }
+
+    details { margin-top: 16px; }
+
+    summary {
+      color: var(--roxo);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      max-height: 350px;
+      margin-top: 12px;
+      border-radius: 10px;
+      background: #171020;
+    }
+
+    footer {
+      padding: 24px 20px;
+      text-align: center;
+      color: var(--suave);
+      border-top: 1px solid var(--borda);
+      font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+      .marca { flex-direction: column; }
+      header { padding: 32px 16px; }
+      .filtros button { padding: 10px 14px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="marca">
+      <div class="logo">
+        <!-- Quando tiver a logo, substitua o emoji por:
+        <img src="imagens/logo.png" alt="Logo da Universo Pixelado">
+        -->
+        <span aria-hidden="true">👾</span>
+      </div>
+
+      <div>
+        <h1>Universo Pixelado</h1>
+        <p class="subtitulo">Um universo de pequenos detalhes ✨</p>
+      </div>
+    </div>
+
+    <p class="apresentacao">
+      Explore nosso catálogo e encontre seus favoritos!
+      Aqui você confere os produtos, os valores e a disponibilidade.
+    </p>
+  </header>
+
+  <main>
+    <nav class="filtros" aria-label="Categorias do catálogo">
+      <button type="button" data-categoria="todos" aria-pressed="true">
+        ✨ Catálogo completo
+      </button>
+      <button type="button" data-categoria="Chaveiros" aria-pressed="false">
+        🔑 Chaveiros
+      </button>
+      <button type="button" data-categoria="Adesivos" aria-pressed="false">
+        🌈 Adesivos
+      </button>
+      <button type="button" data-categoria="Outros" aria-pressed="false">
+        🎁 Outros
+      </button>
+    </nav>
+
+    <p id="resumo" class="resumo" role="status"></p>
+    <section id="catalogo" class="catalogo" aria-label="Produtos"></section>
+
+    <noscript>
+      Ative o JavaScript do navegador para visualizar o catálogo.
+    </noscript>
+  </main>
+
+  <footer>
+    Universo Pixelado ✦ Catálogo de produtos — sem compras pelo site.
+  </footer>
+
+  <script>
+    /*
+      EDITE SEUS PRODUTOS AQUI.
+
+      foto: caminho da imagem, por exemplo "imagens/chaveiro-gatinho.jpg"
+      video: caminho do vídeo, por exemplo "videos/chaveiro-gatinho.mp4"
+      preco: use ponto nos centavos, por exemplo 18.90
+      estoque: quantidade disponível; use 0 para mostrar "Esgotado"
+
+      Deixe foto ou video como "" quando não houver arquivo.
+    */
+
+    const produtos = [
+      {
+        nome: "Chaveiro Gatinho Pixel",
+        categoria: "Chaveiros",
+        descricao: "Um gatinho em estilo pixel art para acompanhar suas chaves.",
+        preco: 18.90,
+        estoque: 8,
+        foto: "",
+        video: "",
+        emoji: "🐱"
+      },
+      {
+        nome: "Chaveiro Coração",
+        categoria: "Chaveiros",
+        descricao: "Um coração pixelado para decorar bolsas e mochilas.",
+        preco: 15.00,
+        estoque: 3,
+        foto: "",
+        video: "",
+        emoji: "💜"
+      },
+      {
+        nome: "Adesivo Planeta",
+        categoria: "Adesivos",
+        descricao: "Um toque de universo para seu caderno ou notebook.",
+        preco: 5.00,
+        estoque: 20,
+        foto: "",
+        video: "",
+        emoji: "🪐"
+      },
+      {
+        nome: "Cartela de Adesivos",
+        categoria: "Adesivos",
+        descricao: "Uma cartela com vários desenhos para você personalizar seus objetos.",
+        preco: 12.00,
+        estoque: 0,
+        foto: "",
+        video: "",
+        emoji: "🌈"
+      },
+      {
+        nome: "Marcador de Página",
+        categoria: "Outros",
+        descricao: "Para marcar suas próximas aventuras literárias.",
+        preco: 8.00,
+        estoque: 6,
+        foto: "",
+        video: "",
+        emoji: "📚"
+      }
+    ];
+
+    const catalogo = document.querySelector("#catalogo");
+    const resumo = document.querySelector("#resumo");
+    const botoes = document.querySelectorAll("[data-categoria]");
+
+    const moeda = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+
+    function criarElemento(tag, classe, texto) {
+      const elemento = document.createElement(tag);
+      if (classe) elemento.className = classe;
+      if (texto !== undefined) elemento.textContent = texto;
+      return elemento;
+    }
+
+    function mostrarProdutos(categoria = "todos") {
+      catalogo.replaceChildren();
+
+      const lista = produtos.filter(produto =>
+        categoria === "todos" || produto.categoria === categoria
+      );
+
+      resumo.textContent = lista.length
+        ? `${lista.length} produto(s) no catálogo • ${
+            categoria === "todos" ? "Todas as categorias" : categoria
+          }`
+        : "Ainda não há produtos nesta categoria.";
+
+      lista.forEach(produto => {
+        const card = criarElemento("article", "produto");
+
+        const placeholder = criarElemento(
+          "div", "sem-foto", produto.emoji || "✨"
+        );
+        placeholder.setAttribute("role", "img");
+        placeholder.setAttribute(
+          "aria-label", `${produto.nome}: foto não disponível`
+        );
+
+        if (produto.foto) {
+          const imagem = criarElemento("img", "foto");
+          imagem.alt = produto.nome;
+          imagem.loading = "lazy";
+          imagem.addEventListener("error", () => {
+            imagem.replaceWith(placeholder);
+          }, { once: true });
+          imagem.src = produto.foto;
+          card.append(imagem);
+        } else {
+          card.append(placeholder);
+        }
+
+        const info = criarElemento("div", "informacoes");
+
+        info.append(
+          criarElemento("span", "categoria", produto.categoria),
+          criarElemento("h2", "", produto.nome),
+          criarElemento("p", "descricao", produto.descricao),
+          criarElemento("p", "preco", moeda.format(produto.preco))
+        );
+
+        const disponivel = produto.estoque > 0;
+
+        info.append(criarElemento(
+          "span",
+          disponivel ? "estoque" : "estoque esgotado",
+          disponivel
+            ? `${produto.estoque} unidade(s) disponível(is)`
+            : "Esgotado"
+        ));
+
+        if (produto.video) {
+          const detalhes = criarElemento("details");
+          const video = criarElemento("video");
+
+          video.controls = true;
+          video.preload = "none";
+          video.playsInline = true;
+          video.src = produto.video;
+          video.setAttribute("aria-label", `Vídeo de ${produto.nome}`);
+          video.textContent = "Seu navegador não suporta este vídeo.";
+
+          detalhes.append(
+            criarElemento("summary", "", "▶ Ver vídeo do produto"),
+            video
+          );
+
+          detalhes.addEventListener("toggle", () => {
+            if (!detalhes.open) video.pause();
+          });
+
+          info.append(detalhes);
+        }
+
+        card.append(info);
+        catalogo.append(card);
+      });
+    }
+
+    botoes.forEach(botao => {
+      botao.addEventListener("click", () => {
+        botoes.forEach(item => {
+          item.setAttribute("aria-pressed", String(item === botao));
+        });
+
+        mostrarProdutos(botao.dataset.categoria);
+      });
+    });
+
+    mostrarProdutos();
+  </script>
+</body>
+</html>
