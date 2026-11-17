@@ -54,20 +54,31 @@
     }
 
     /* ====================================
-       CABEÇALHO
+       CABEÇALHO COM IMAGEM DE FUNDO
        ==================================== */
 
     header {
-      padding: 48px 20px;
+      padding: 56px 20px;
       text-align: center;
+      background-color: #e5d4ff;
 
-      background:
-        radial-gradient(
-          circle at 15% 20%,
-          #ffffff80,
-          transparent 35%
+      /*
+        A camada clara ajuda na leitura dos textos.
+
+        Para mostrar mais a imagem, diminua os dois
+        valores 0.78, por exemplo, para 0.35.
+      */
+
+      background-image:
+        linear-gradient(
+          rgba(250, 247, 255, 0.78),
+          rgba(250, 247, 255, 0.78)
         ),
-        linear-gradient(135deg, #e5d4ff, #ffe1ef);
+        url("imagens/cabeçalho.png");
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
 
       border-bottom: 3px solid var(--borda);
     }
@@ -76,26 +87,26 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 18px;
+      gap: 26px;
     }
 
     .logo {
-      width: 90px;
-      height: 90px;
+      width: 160px;
+      height: 160px;
       flex-shrink: 0;
+
       display: grid;
       place-items: center;
       overflow: hidden;
 
       background: white;
       border: 3px solid var(--roxo);
-      border-radius: 20px;
+      border-radius: 26px;
       box-shadow: 5px 5px 0 #7544c630;
-
-      font-size: 42px;
     }
 
     .logo img {
+      display: block;
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -103,7 +114,7 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(26px, 5vw, 42px);
+      font-size: clamp(28px, 5vw, 44px);
       letter-spacing: -1px;
     }
 
@@ -137,6 +148,7 @@
 
     .filtros button {
       padding: 12px 20px;
+
       background: white;
       color: var(--roxo);
 
@@ -171,11 +183,13 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 8px;
+
       margin: -8px 0 24px;
     }
 
     .subcategorias button {
       padding: 9px 14px;
+
       background: white;
       color: var(--roxo);
 
@@ -268,6 +282,7 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
+
       padding: 24px;
       text-align: center;
 
@@ -284,6 +299,10 @@
       margin: 0;
       color: var(--suave);
       font-size: 14px;
+    }
+
+    .foto-ampliavel {
+      cursor: zoom-in;
     }
 
     .carrossel-controles {
@@ -303,6 +322,7 @@
 
       background: white;
       color: var(--roxo);
+
       border: 1px solid var(--borda);
       border-radius: 10px;
 
@@ -318,6 +338,27 @@
       color: var(--suave);
       font-size: 14px;
       text-align: center;
+    }
+
+    .botao-ampliar {
+      display: block;
+
+      width: calc(100% - 28px);
+      margin: 12px 14px;
+      padding: 11px 14px;
+
+      background: white;
+      color: var(--roxo);
+
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .botao-ampliar:hover {
+      background: #e5d4ff;
     }
 
     /* ====================================
@@ -378,6 +419,85 @@
     }
 
     /* ====================================
+       GALERIA AMPLIADA
+       ==================================== */
+
+    .modal-galeria {
+      width: min(1000px, calc(100vw - 24px));
+      max-width: none;
+
+      /* Primeiro valor como alternativa ao dvh. */
+      max-height: calc(100vh - 24px);
+      max-height: calc(100dvh - 24px);
+
+      padding: 0;
+      overflow: auto;
+
+      background: white;
+      color: var(--texto);
+
+      border: 1px solid var(--borda);
+      border-radius: 18px;
+
+      box-shadow: 0 20px 70px #00000050;
+    }
+
+    .modal-galeria::backdrop {
+      background: rgba(15, 10, 25, 0.82);
+    }
+
+    .modal-cabecalho {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--borda);
+    }
+
+    .modal-cabecalho h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .modal-fechar {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+
+      background: #f0e7ff;
+      color: var(--roxo);
+
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .modal-fechar:hover {
+      background: #e5d4ff;
+    }
+
+    .modal-galeria .carrossel-tela {
+      aspect-ratio: auto;
+
+      height: min(68vh, 700px);
+      height: min(68dvh, 700px);
+
+      background: #171020;
+    }
+
+    .modal-galeria .carrossel-controles {
+      background: white;
+    }
+
+    body.galeria-aberta {
+      overflow: hidden;
+    }
+
+    /* ====================================
        RODAPÉ E AJUSTES PARA CELULAR
        ==================================== */
 
@@ -402,6 +522,12 @@
 
       .marca {
         flex-direction: column;
+        gap: 18px;
+      }
+
+      .logo {
+        width: 130px;
+        height: 130px;
       }
 
       main {
@@ -416,6 +542,19 @@
       .subcategorias button {
         padding: 8px 12px;
         font-size: 13px;
+      }
+
+      .modal-cabecalho {
+        padding: 12px;
+      }
+
+      .modal-cabecalho h2 {
+        font-size: 17px;
+      }
+
+      .modal-galeria .carrossel-tela {
+        height: 60vh;
+        height: 60dvh;
       }
     }
 
@@ -435,10 +574,10 @@
   <header>
     <div class="marca">
       <div class="logo">
-          <img
-            src="imagens/logo.png"
-            alt="Logo da Universo Pixelado"
-          >
+        <img
+          src="imagens/logo.png"
+          alt="Logo da Universo Pixelado"
+        >
       </div>
 
       <div>
@@ -501,10 +640,7 @@
       </button>
     </nav>
 
-    <!--
-      Os botões das subcategorias são
-      criados automaticamente pelo JavaScript.
-    -->
+    <!-- SUBCATEGORIAS DOS CHAVEIROS -->
 
     <nav
       id="subcategorias"
@@ -536,15 +672,41 @@
     <p>Catálogo de produtos — sem compras pelo site.</p>
   </footer>
 
+  <!-- ====================================
+       JANELA DA GALERIA AMPLIADA
+       ==================================== -->
+
+  <dialog
+    id="modal-galeria"
+    class="modal-galeria"
+    aria-labelledby="modal-titulo"
+  >
+    <div class="modal-cabecalho">
+      <h2 id="modal-titulo">
+        Fotos e vídeos do produto
+      </h2>
+
+      <button
+        id="modal-fechar"
+        class="modal-fechar"
+        type="button"
+        aria-label="Fechar galeria"
+        autofocus
+      >
+        ✕
+      </button>
+    </div>
+
+    <div id="modal-conteudo"></div>
+  </dialog>
+
   <script>
     /* ==========================================
        SUBCATEGORIAS DE CHAVEIROS
 
-       Para criar outra subcategoria, adicione
-       o nome à lista abaixo.
-
-       Use o mesmo nome no campo "subcategoria"
-       dos produtos.
+       Para adicionar outra subcategoria:
+       1. Acrescente o nome nesta lista.
+       2. Use o mesmo nome no produto.
        ========================================== */
 
     const subcategoriasChaveiros = [
@@ -556,41 +718,35 @@
     /* ==========================================
        CADASTRO DOS PRODUTOS
 
-       Edite os exemplos abaixo.
-
        categoria:
          "Chaveiros", "Adesivos" ou "Outros".
 
        subcategoria:
-         Para os chaveiros, use um dos nomes
-         da lista acima.
+         Para chaveiros, use um nome da lista acima.
 
        descricao:
-         Escreva entre crases para pular linhas.
+         Use crases para escrever em várias linhas.
 
        preco:
-         Use ponto nos centavos: 18.90
+         Use ponto nos centavos: 15.00
 
        estoque:
          Quantidade disponível.
          Use 0 para mostrar "Esgotado".
 
        midias:
-         Lista de imagens e vídeos.
+         Lista de fotos e vídeos.
          Use [] quando não tiver arquivos.
 
-       tipo da mídia:
+       tipo:
          "imagem" ou "video".
 
        arquivo:
-         Caminho exato do arquivo.
+         Caminho exato da imagem ou do vídeo.
 
        descricao da mídia:
-         Texto identificando a foto ou o vídeo.
-
-       ATENÇÃO:
-         Preços, estoque e descrições abaixo
-         são exemplos. Ajuste antes de publicar.
+         Texto opcional identificando a foto
+         ou o vídeo.
        ========================================== */
 
     const produtos = [
@@ -618,19 +774,19 @@
         midias: [
           {
             tipo: "imagem",
-            arquivo: "imagens/manchestercity1.jpeg",
+            arquivo: "imagens/manchestercity1.jpeg"
           },
           {
             tipo: "imagem",
-            arquivo: "imagens/manchestercity2.jpeg",
+            arquivo: "imagens/manchestercity2.jpeg"
           },
           {
             tipo: "imagem",
-            arquivo: "imagens/manchestercity3.jpeg",
+            arquivo: "imagens/manchestercity3.jpeg"
           },
           {
             tipo: "video",
-            arquivo: "videos/manchestercity.mp4",
+            arquivo: "videos/manchestercity.mp4"
           }
         ]
       },
@@ -715,8 +871,8 @@
     /* ==========================================
        FUNCIONAMENTO DO SITE
 
-       Não precisa editar daqui para baixo
-       para cadastrar produtos.
+       Para cadastrar produtos, não precisa
+       alterar o código daqui para baixo.
        ========================================== */
 
     const catalogo = document.querySelector("#catalogo");
@@ -730,8 +886,25 @@
       "#subcategorias"
     );
 
+    const modalGaleria = document.querySelector(
+      "#modal-galeria"
+    );
+
+    const modalTitulo = document.querySelector(
+      "#modal-titulo"
+    );
+
+    const modalConteudo = document.querySelector(
+      "#modal-conteudo"
+    );
+
+    const modalFechar = document.querySelector(
+      "#modal-fechar"
+    );
+
     let categoriaAtual = "todos";
     let subcategoriaAtual = "todos";
+    let elementoQueAbriuGaleria = null;
 
     const moeda = new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -781,9 +954,99 @@
       return placeholder;
     }
 
-    /* CARROSSEL DE CADA PRODUTO */
+    /* ==========================================
+       ABRIR E FECHAR A GALERIA AMPLIADA
+       ========================================== */
 
-    function criarCarrossel(produto) {
+    function abrirGaleria(
+      produto,
+      indiceInicial = 0,
+      elementoOrigem = null
+    ) {
+      if (modalGaleria.open) {
+        return;
+      }
+
+      // Pausa vídeos que estejam tocando nos cards.
+      catalogo.querySelectorAll("video").forEach(video => {
+        video.pause();
+      });
+
+      elementoQueAbriuGaleria =
+        elementoOrigem || document.activeElement;
+
+      modalTitulo.textContent = produto.nome;
+
+      modalConteudo.replaceChildren(
+        criarCarrossel(produto, false, indiceInicial)
+      );
+
+      modalGaleria.showModal();
+
+      document.body.classList.add("galeria-aberta");
+    }
+
+    function fecharGaleria() {
+      if (modalGaleria.open) {
+        modalGaleria.close();
+      }
+    }
+
+    modalFechar.addEventListener(
+      "click",
+      fecharGaleria
+    );
+
+    // Fecha ao clicar fora dos limites da janela.
+    modalGaleria.addEventListener("click", evento => {
+      if (evento.target !== modalGaleria) {
+        return;
+      }
+
+      const limites = modalGaleria.getBoundingClientRect();
+
+      const clicouFora =
+        evento.clientX < limites.left ||
+        evento.clientX > limites.right ||
+        evento.clientY < limites.top ||
+        evento.clientY > limites.bottom;
+
+      if (clicouFora) {
+        fecharGaleria();
+      }
+    });
+
+    // Também executado quando a janela fecha com Escape.
+    modalGaleria.addEventListener("close", () => {
+      modalConteudo.querySelectorAll("video").forEach(video => {
+        video.pause();
+      });
+
+      modalConteudo.replaceChildren();
+
+      document.body.classList.remove("galeria-aberta");
+
+      if (
+        elementoQueAbriuGaleria &&
+        elementoQueAbriuGaleria.isConnected
+      ) {
+        elementoQueAbriuGaleria.focus({
+          preventScroll: true
+        });
+      }
+
+      elementoQueAbriuGaleria = null;
+    });
+
+    /* ==========================================
+       CARROSSEL DE CADA PRODUTO
+       ========================================== */
+
+    function criarCarrossel(
+      produto,
+      permitirAmpliacao = true,
+      indiceInicial = 0
+    ) {
       const carrossel = criarElemento(
         "div",
         "carrossel"
@@ -802,7 +1065,15 @@
       );
 
       const midias = produto.midias || [];
-      let indice = 0;
+
+      let indice = midias.length
+        ? Math.max(
+            0,
+            Math.min(indiceInicial, midias.length - 1)
+          )
+        : 0;
+
+      let botaoAmpliar = null;
 
       const contador = criarElemento(
         "span",
@@ -839,7 +1110,10 @@
           elemento = criarElemento("video");
 
           elemento.controls = true;
-          elemento.preload = "none";
+          elemento.preload = permitirAmpliacao
+            ? "none"
+            : "metadata";
+
           elemento.playsInline = true;
 
           elemento.setAttribute(
@@ -853,16 +1127,34 @@
           elemento = criarElemento("img");
 
           elemento.alt =
-            midia.descricao || `Foto de ${produto.nome}`;
+            midia.descricao ||
+            `Foto ${indice + 1} de ${produto.nome}`;
 
-          elemento.loading = "lazy";
+          elemento.loading = permitirAmpliacao
+            ? "lazy"
+            : "eager";
+
           elemento.decoding = "async";
+
+          if (permitirAmpliacao) {
+            elemento.classList.add("foto-ampliavel");
+
+            elemento.title = "Clique para ampliar";
+
+            elemento.addEventListener("click", () => {
+              abrirGaleria(
+                produto,
+                indice,
+                botaoAmpliar
+              );
+            });
+          }
         }
 
         elemento.addEventListener(
           "error",
           () => {
-            // Evita alterar uma mídia já substituída.
+            // Não altera uma mídia que já foi trocada.
             if (elemento.parentNode !== tela) {
               return;
             }
@@ -943,12 +1235,50 @@
         carrossel.append(controles);
       }
 
+      // Só mostra o botão de ampliação nos cards.
+      if (permitirAmpliacao && midias.length > 0) {
+        botaoAmpliar = criarElemento(
+          "button",
+          "botao-ampliar",
+          "🔍 Ampliar fotos e vídeos"
+        );
+
+        botaoAmpliar.type = "button";
+
+        botaoAmpliar.setAttribute(
+          "aria-label",
+          `Ampliar fotos e vídeos de ${produto.nome}`
+        );
+
+        botaoAmpliar.setAttribute(
+          "aria-haspopup",
+          "dialog"
+        );
+
+        botaoAmpliar.setAttribute(
+          "aria-controls",
+          "modal-galeria"
+        );
+
+        botaoAmpliar.addEventListener("click", () => {
+          abrirGaleria(
+            produto,
+            indice,
+            botaoAmpliar
+          );
+        });
+
+        carrossel.append(botaoAmpliar);
+      }
+
       mostrarMidia();
 
       return carrossel;
     }
 
-    /* ATUALIZA O ESTADO DOS FILTROS */
+    /* ==========================================
+       ATUALIZA OS FILTROS
+       ========================================== */
 
     function atualizarFiltros() {
       botoesCategorias.forEach(botao => {
@@ -975,7 +1305,9 @@
         });
     }
 
-    /* CRIA OS BOTÕES DAS SUBCATEGORIAS */
+    /* ==========================================
+       CRIA OS BOTÕES DAS SUBCATEGORIAS
+       ========================================== */
 
     function criarBotoesSubcategorias() {
       areaSubcategorias.replaceChildren();
@@ -1023,10 +1355,11 @@
       });
     }
 
-    /* FILTRA E EXIBE OS PRODUTOS */
+    /* ==========================================
+       FILTRA E EXIBE OS PRODUTOS
+       ========================================== */
 
     function mostrarProdutos() {
-      // Interrompe vídeos antes de trocar os produtos.
       catalogo.querySelectorAll("video").forEach(video => {
         video.pause();
       });
@@ -1142,13 +1475,15 @@
       });
     }
 
-    /* CLIQUES NAS CATEGORIAS PRINCIPAIS */
+    /* ==========================================
+       CLIQUES NAS CATEGORIAS PRINCIPAIS
+       ========================================== */
 
     botoesCategorias.forEach(botao => {
       botao.addEventListener("click", () => {
         categoriaAtual = botao.dataset.categoria;
 
-        // Ao trocar de categoria, limpa o subfiltro.
+        // Limpa o subfiltro ao mudar de categoria.
         subcategoriaAtual = "todos";
 
         atualizarFiltros();
@@ -1156,7 +1491,9 @@
       });
     });
 
-    /* INICIALIZAÇÃO DO CATÁLOGO */
+    /* ==========================================
+       INICIALIZAÇÃO
+       ========================================== */
 
     criarBotoesSubcategorias();
     atualizarFiltros();
