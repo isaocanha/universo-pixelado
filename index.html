@@ -2,13 +2,24 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-        content="Conheça o catálogo da Universo Pixelado: chaveiros, adesivos e outros produtos.">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="description"
+    content="Conheça o catálogo da Universo Pixelado: cópia, digitalização, chaveiros, adesivos e outros produtos."
+  >
 
   <title>Universo Pixelado | Catálogo</title>
 
   <style>
+    /* ====================================
+       CORES E ESTILOS GERAIS
+       ==================================== */
+
     :root {
       --fundo: #faf7ff;
       --texto: #302448;
@@ -17,7 +28,9 @@
       --borda: #e9def5;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -27,12 +40,35 @@
       line-height: 1.5;
     }
 
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #c62e7a;
+      outline-offset: 4px;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    /* ====================================
+       CABEÇALHO
+       ==================================== */
+
     header {
       padding: 48px 20px;
       text-align: center;
+
       background:
-        radial-gradient(circle at 15% 20%, #ffffff80, transparent 35%),
+        radial-gradient(
+          circle at 15% 20%,
+          #ffffff80,
+          transparent 35%
+        ),
         linear-gradient(135deg, #e5d4ff, #ffe1ef);
+
       border-bottom: 3px solid var(--borda);
     }
 
@@ -44,17 +80,19 @@
     }
 
     .logo {
-      width: 84px;
-      height: 84px;
+      width: 90px;
+      height: 90px;
       flex-shrink: 0;
       display: grid;
       place-items: center;
+      overflow: hidden;
+
       background: white;
       border: 3px solid var(--roxo);
       border-radius: 20px;
       box-shadow: 5px 5px 0 #7544c630;
-      font-size: 40px;
-      overflow: hidden;
+
+      font-size: 42px;
     }
 
     .logo img {
@@ -75,9 +113,13 @@
     }
 
     .apresentacao {
-      margin: 24px auto 0;
       max-width: 550px;
+      margin: 24px auto 0;
     }
+
+    /* ====================================
+       CATEGORIAS PRINCIPAIS
+       ==================================== */
 
     main {
       width: min(1100px, 100%);
@@ -90,19 +132,23 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .filtros button {
       padding: 12px 20px;
       background: white;
       color: var(--roxo);
+
       border: 2px solid var(--borda);
       border-radius: 12px;
-      font: inherit;
+
       font-weight: bold;
       cursor: pointer;
-      transition: background .2s, transform .2s;
+
+      transition:
+        background 0.2s,
+        transform 0.2s;
     }
 
     .filtros button:hover {
@@ -116,52 +162,171 @@
       color: white;
     }
 
-    button:focus-visible,
-    summary:focus-visible {
-      outline: 3px solid #c62e7a;
-      outline-offset: 4px;
+    /* ====================================
+       SUBCATEGORIAS DOS CHAVEIROS
+       ==================================== */
+
+    .subcategorias {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: -8px 0 24px;
     }
 
+    .subcategorias button {
+      padding: 9px 14px;
+      background: white;
+      color: var(--roxo);
+
+      border: 1px solid var(--borda);
+      border-radius: 20px;
+
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .subcategorias button:hover {
+      background: #f0e7ff;
+    }
+
+    .subcategorias button[aria-pressed="true"] {
+      background: #e5d4ff;
+      color: var(--texto);
+      border-color: var(--roxo);
+      font-weight: bold;
+    }
+
+    /* ====================================
+       CATÁLOGO E CARDS
+       ==================================== */
+
     .resumo {
-      margin-bottom: 20px;
-      color: var(--suave);
+      margin: 0 0 24px;
       text-align: center;
+      color: var(--suave);
+      font-size: 14px;
     }
 
     .catalogo {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+      grid-template-columns:
+        repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+
       gap: 24px;
+      align-items: start;
     }
 
     .produto {
+      min-width: 0;
+      overflow: hidden;
+
       background: white;
       border: 1px solid var(--borda);
       border-radius: 18px;
-      overflow: hidden;
+
       box-shadow: 0 6px 20px #30244808;
     }
 
-    .foto,
-    .sem-foto {
-      width: 100%;
-      aspect-ratio: 1;
-      display: block;
-    }
+    /* ====================================
+       CARROSSEL DE FOTOS E VÍDEOS
+       ==================================== */
 
-    .foto {
-      object-fit: contain;
+    .carrossel {
       background: #f4edff;
     }
 
-    .sem-foto {
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, #f0e5ff, #ffeaf3);
-      font-size: 70px;
+    .carrossel-tela {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      overflow: hidden;
     }
 
-    .informacoes { padding: 20px; }
+    .carrossel-tela > img,
+    .carrossel-tela > video,
+    .carrossel-tela > .sem-midia {
+      position: absolute;
+      inset: 0;
+
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+
+      object-fit: contain;
+    }
+
+    .carrossel-tela > video {
+      background: #171020;
+    }
+
+    .carrossel-tela > .sem-midia {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 24px;
+      text-align: center;
+
+      background:
+        linear-gradient(135deg, #f0e5ff, #ffeaf3);
+    }
+
+    .sem-midia-emoji {
+      font-size: 64px;
+    }
+
+    .sem-midia-texto {
+      max-width: 240px;
+      margin: 0;
+      color: var(--suave);
+      font-size: 14px;
+    }
+
+    .carrossel-controles {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+
+      padding: 10px 14px;
+      border-top: 1px solid var(--borda);
+    }
+
+    .carrossel-controles button {
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+
+      background: white;
+      color: var(--roxo);
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .carrossel-controles button:hover {
+      background: #e5d4ff;
+    }
+
+    .carrossel-contador {
+      color: var(--suave);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* ====================================
+       INFORMAÇÕES DOS PRODUTOS
+       ==================================== */
+
+    .informacoes {
+      padding: 20px;
+    }
 
     .categoria {
       color: var(--roxo);
@@ -169,21 +334,28 @@
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 1px;
+      overflow-wrap: anywhere;
     }
 
     h2 {
-      margin: 8px 0;
+      margin: 8px 0 12px;
       font-size: 20px;
+      overflow-wrap: anywhere;
     }
 
     .descricao {
+      margin: 0;
       color: var(--suave);
       font-size: 14px;
+
+      /* Mantém as quebras de linha da descrição. */
       white-space: pre-line;
+
+      overflow-wrap: anywhere;
     }
 
     .preco {
-      margin: 16px 0 10px;
+      margin: 20px 0 10px;
       color: var(--roxo);
       font-size: 24px;
       font-weight: bold;
@@ -192,275 +364,802 @@
     .estoque {
       display: inline-block;
       padding: 5px 10px;
-      border-radius: 8px;
+
       background: #e9f8ef;
       color: #23623d;
+      border-radius: 8px;
+
       font-size: 13px;
     }
 
-    .esgotado {
+    .estoque.esgotado {
       background: #fff0f0;
       color: #9b3434;
     }
 
-    details { margin-top: 16px; }
-
-    summary {
-      color: var(--roxo);
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    video {
-      display: block;
-      width: 100%;
-      max-height: 350px;
-      margin-top: 12px;
-      border-radius: 10px;
-      background: #171020;
-    }
+    /* ====================================
+       RODAPÉ E AJUSTES PARA CELULAR
+       ==================================== */
 
     footer {
       padding: 24px 20px;
       text-align: center;
+
       color: var(--suave);
       border-top: 1px solid var(--borda);
+
       font-size: 14px;
     }
 
+    footer p {
+      margin: 4px 0;
+    }
+
     @media (max-width: 480px) {
-      .marca { flex-direction: column; }
-      header { padding: 32px 16px; }
-      .filtros button { padding: 10px 14px; }
+      header {
+        padding: 32px 16px;
+      }
+
+      .marca {
+        flex-direction: column;
+      }
+
+      main {
+        padding: 24px 16px 40px;
+      }
+
+      .filtros button {
+        padding: 10px 14px;
+        font-size: 14px;
+      }
+
+      .subcategorias button {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .filtros button {
+        transition: none;
+      }
     }
   </style>
 </head>
 
 <body>
+  <!-- ====================================
+       CABEÇALHO DA LOJA
+       ==================================== -->
+
   <header>
     <div class="marca">
       <div class="logo">
-        <!-- Quando tiver a logo, substitua o emoji por:
-        <img src="imagens/logo.png" alt="Logo da Universo Pixelado">
-        -->
-        <span aria-hidden="true">👾</span>
+          <img
+            src="imagens/logo.png"
+            alt="Logo da Universo Pixelado"
+          >
       </div>
 
       <div>
         <h1>Universo Pixelado</h1>
-        <p class="subtitulo">Um universo de pequenos detalhes ✨</p>
+
+        <p class="subtitulo">
+          Uma lojinha daora ⌚
+        </p>
       </div>
     </div>
 
     <p class="apresentacao">
       Explore nosso catálogo e encontre seus favoritos!
-      Aqui você confere os produtos, os valores e a disponibilidade.
+      Confira fotos, vídeos, valores e disponibilidade.
     </p>
   </header>
 
   <main>
-    <nav class="filtros" aria-label="Categorias do catálogo">
-      <button type="button" data-categoria="todos" aria-pressed="true">
+    <!-- CATEGORIAS PRINCIPAIS -->
+
+    <nav
+      id="categorias"
+      class="filtros"
+      aria-label="Categorias do catálogo"
+    >
+      <button
+        type="button"
+        data-categoria="todos"
+        aria-pressed="true"
+        aria-controls="catalogo"
+      >
         ✨ Catálogo completo
       </button>
-      <button type="button" data-categoria="Chaveiros" aria-pressed="false">
+
+      <button
+        type="button"
+        data-categoria="Chaveiros"
+        aria-pressed="false"
+        aria-controls="catalogo"
+      >
         🔑 Chaveiros
       </button>
-      <button type="button" data-categoria="Adesivos" aria-pressed="false">
+
+      <button
+        type="button"
+        data-categoria="Adesivos"
+        aria-pressed="false"
+        aria-controls="catalogo"
+      >
         🌈 Adesivos
       </button>
-      <button type="button" data-categoria="Outros" aria-pressed="false">
+
+      <button
+        type="button"
+        data-categoria="Outros"
+        aria-pressed="false"
+        aria-controls="catalogo"
+      >
         🎁 Outros
       </button>
     </nav>
 
-    <p id="resumo" class="resumo" role="status"></p>
-    <section id="catalogo" class="catalogo" aria-label="Produtos"></section>
+    <!--
+      Os botões das subcategorias são
+      criados automaticamente pelo JavaScript.
+    -->
+
+    <nav
+      id="subcategorias"
+      class="subcategorias"
+      aria-label="Subcategorias de chaveiros"
+      hidden
+    ></nav>
+
+    <p
+      id="resumo"
+      class="resumo"
+      role="status"
+    ></p>
+
+    <section
+      id="catalogo"
+      class="catalogo"
+      aria-label="Produtos"
+    ></section>
 
     <noscript>
-      Ative o JavaScript do navegador para visualizar o catálogo.
+      Ative o JavaScript do navegador para visualizar
+      os produtos do catálogo.
     </noscript>
   </main>
 
   <footer>
-    Universo Pixelado ✦ Catálogo de produtos — sem compras pelo site.
+    <p>Universo Pixelado ✦</p>
+    <p>Catálogo de produtos — sem compras pelo site.</p>
   </footer>
 
   <script>
-    /*
-      EDITE SEUS PRODUTOS AQUI.
+    /* ==========================================
+       SUBCATEGORIAS DE CHAVEIROS
 
-      foto: caminho da imagem, por exemplo "imagens/chaveiro-gatinho.jpg"
-      video: caminho do vídeo, por exemplo "videos/chaveiro-gatinho.mp4"
-      preco: use ponto nos centavos, por exemplo 18.90
-      estoque: quantidade disponível; use 0 para mostrar "Esgotado"
+       Para criar outra subcategoria, adicione
+       o nome à lista abaixo.
 
-      Deixe foto ou video como "" quando não houver arquivo.
-    */
+       Use o mesmo nome no campo "subcategoria"
+       dos produtos.
+       ========================================== */
+
+    const subcategoriasChaveiros = [
+      "Time de Futebol",
+      "Pokémon",
+      "Capa de Disco de Vinil"
+    ];
+
+    /* ==========================================
+       CADASTRO DOS PRODUTOS
+
+       Edite os exemplos abaixo.
+
+       categoria:
+         "Chaveiros", "Adesivos" ou "Outros".
+
+       subcategoria:
+         Para os chaveiros, use um dos nomes
+         da lista acima.
+
+       descricao:
+         Escreva entre crases para pular linhas.
+
+       preco:
+         Use ponto nos centavos: 18.90
+
+       estoque:
+         Quantidade disponível.
+         Use 0 para mostrar "Esgotado".
+
+       midias:
+         Lista de imagens e vídeos.
+         Use [] quando não tiver arquivos.
+
+       tipo da mídia:
+         "imagem" ou "video".
+
+       arquivo:
+         Caminho exato do arquivo.
+
+       descricao da mídia:
+         Texto identificando a foto ou o vídeo.
+
+       ATENÇÃO:
+         Preços, estoque e descrições abaixo
+         são exemplos. Ajuste antes de publicar.
+       ========================================== */
 
     const produtos = [
       {
-        nome: "Chaveiro Gatinho Pixel",
+        nome: "Chaveiro Manchester City",
         categoria: "Chaveiros",
-        descricao: "Um gatinho em estilo pixel art para acompanhar suas chaves.",
-        preco: 18.90,
-        estoque: 8,
-        foto: "",
-        video: "",
-        emoji: "🐱"
-      },
-      {
-        nome: "Chaveiro Coração",
-        categoria: "Chaveiros",
-        descricao: "Um coração pixelado para decorar bolsas e mochilas.",
+        subcategoria: "Time de Futebol",
+
+        descricao: `⚽ Chaveiro Time de Futebol - Manchester City
+
+🧵 MATERIAL: Acrílico transparente
+
+📏 TAMANHO: 3,4cm de comprimento x 4cm de altura
+
+🔎 ESPESSURA DO ACRÍLICO: 4mm
+
+📦 QUANTIDADE: 1 chaveiro
+
+📣 AVISO: Cada chaveiro pode apresentar leves alterações nos tons das cores, por se tratar de uma fabricação artesanal. ✨`,
+
         preco: 15.00,
-        estoque: 3,
-        foto: "",
-        video: "",
-        emoji: "💜"
+        estoque: 1,
+        emoji: "⚽",
+
+        midias: [
+          {
+            tipo: "imagem",
+            arquivo: "imagens/manchestercity1.jpeg",
+          },
+          {
+            tipo: "imagem",
+            arquivo: "imagens/manchestercity2.jpeg",
+          },
+          {
+            tipo: "imagem",
+            arquivo: "imagens/manchestercity3.jpeg",
+          },
+          {
+            tipo: "video",
+            arquivo: "videos/manchester.mp4",
+          }
+        ]
       },
+
+      {
+        nome: "Chaveiro Pikachu",
+        categoria: "Chaveiros",
+        subcategoria: "Pokémon",
+
+        descricao: `⚡ Chaveiro Pikachu
+
+📦 QUANTIDADE: 1 chaveiro
+
+✨ Adicione aqui o material, as medidas e outras informações do seu produto.`,
+
+        preco: 18.90,
+        estoque: 5,
+        emoji: "⚡",
+
+        midias: []
+      },
+
+      {
+        nome: "Chaveiro Capa de Disco",
+        categoria: "Chaveiros",
+        subcategoria: "Capa de Disco de Vinil",
+
+        descricao: `🎵 Chaveiro inspirado em capa de disco de vinil
+
+📦 QUANTIDADE: 1 chaveiro
+
+✨ Adicione aqui o nome do álbum e os detalhes do produto.`,
+
+        preco: 20.00,
+        estoque: 4,
+        emoji: "🎵",
+
+        midias: []
+      },
+
       {
         nome: "Adesivo Planeta",
         categoria: "Adesivos",
-        descricao: "Um toque de universo para seu caderno ou notebook.",
+
+        descricao: `🪐 Um toque de universo para seu caderno!
+
+📦 QUANTIDADE: 1 adesivo
+
+✨ Personalize seus objetos com um detalhe especial.`,
+
         preco: 5.00,
         estoque: 20,
-        foto: "",
-        video: "",
-        emoji: "🪐"
+        emoji: "🪐",
+
+        midias: [
+          {
+            tipo: "imagem",
+            arquivo: "imagens/adesivo-planeta.jpg",
+            descricao: "Adesivo ilustrado de um planeta"
+          }
+        ]
       },
-      {
-        nome: "Cartela de Adesivos",
-        categoria: "Adesivos",
-        descricao: "Uma cartela com vários desenhos para você personalizar seus objetos.",
-        preco: 12.00,
-        estoque: 0,
-        foto: "",
-        video: "",
-        emoji: "🌈"
-      },
+
       {
         nome: "Marcador de Página",
         categoria: "Outros",
-        descricao: "Para marcar suas próximas aventuras literárias.",
+
+        descricao: `📚 Para acompanhar suas aventuras literárias!
+
+📦 QUANTIDADE: 1 marcador de página
+
+✨ Fotos em breve.`,
+
         preco: 8.00,
-        estoque: 6,
-        foto: "",
-        video: "",
-        emoji: "📚"
+        estoque: 0,
+        emoji: "📚",
+
+        midias: []
       }
     ];
 
+    /* ==========================================
+       FUNCIONAMENTO DO SITE
+
+       Não precisa editar daqui para baixo
+       para cadastrar produtos.
+       ========================================== */
+
     const catalogo = document.querySelector("#catalogo");
     const resumo = document.querySelector("#resumo");
-    const botoes = document.querySelectorAll("[data-categoria]");
+
+    const botoesCategorias = document.querySelectorAll(
+      "#categorias [data-categoria]"
+    );
+
+    const areaSubcategorias = document.querySelector(
+      "#subcategorias"
+    );
+
+    let categoriaAtual = "todos";
+    let subcategoriaAtual = "todos";
 
     const moeda = new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL"
     });
 
+    /* CRIA ELEMENTOS HTML */
+
     function criarElemento(tag, classe, texto) {
       const elemento = document.createElement(tag);
-      if (classe) elemento.className = classe;
-      if (texto !== undefined) elemento.textContent = texto;
+
+      if (classe) {
+        elemento.className = classe;
+      }
+
+      if (texto !== undefined) {
+        elemento.textContent = texto;
+      }
+
       return elemento;
     }
 
-    function mostrarProdutos(categoria = "todos") {
-      catalogo.replaceChildren();
+    /* MENSAGEM PARA PRODUTOS SEM MÍDIA */
 
-      const lista = produtos.filter(produto =>
-        categoria === "todos" || produto.categoria === categoria
+    function criarPlaceholder(produto, mensagem) {
+      const placeholder = criarElemento(
+        "div",
+        "sem-midia"
       );
 
-      resumo.textContent = lista.length
-        ? `${lista.length} produto(s) no catálogo • ${
-            categoria === "todos" ? "Todas as categorias" : categoria
-          }`
-        : "Ainda não há produtos nesta categoria.";
+      const emoji = criarElemento(
+        "span",
+        "sem-midia-emoji",
+        produto.emoji || "✨"
+      );
 
-      lista.forEach(produto => {
-        const card = criarElemento("article", "produto");
+      emoji.setAttribute("aria-hidden", "true");
 
-        const placeholder = criarElemento(
-          "div", "sem-foto", produto.emoji || "✨"
-        );
-        placeholder.setAttribute("role", "img");
-        placeholder.setAttribute(
-          "aria-label", `${produto.nome}: foto não disponível`
-        );
+      const texto = criarElemento(
+        "p",
+        "sem-midia-texto",
+        mensagem
+      );
 
-        if (produto.foto) {
-          const imagem = criarElemento("img", "foto");
-          imagem.alt = produto.nome;
-          imagem.loading = "lazy";
-          imagem.addEventListener("error", () => {
-            imagem.replaceWith(placeholder);
-          }, { once: true });
-          imagem.src = produto.foto;
-          card.append(imagem);
-        } else {
-          card.append(placeholder);
+      placeholder.append(emoji, texto);
+
+      return placeholder;
+    }
+
+    /* CARROSSEL DE CADA PRODUTO */
+
+    function criarCarrossel(produto) {
+      const carrossel = criarElemento(
+        "div",
+        "carrossel"
+      );
+
+      const tela = criarElemento(
+        "div",
+        "carrossel-tela"
+      );
+
+      carrossel.setAttribute("role", "group");
+
+      carrossel.setAttribute(
+        "aria-label",
+        `Fotos e vídeos de ${produto.nome}`
+      );
+
+      const midias = produto.midias || [];
+      let indice = 0;
+
+      const contador = criarElemento(
+        "span",
+        "carrossel-contador"
+      );
+
+      contador.setAttribute("role", "status");
+      contador.setAttribute("aria-atomic", "true");
+
+      function mostrarMidia() {
+        const videoAnterior = tela.querySelector("video");
+
+        if (videoAnterior) {
+          videoAnterior.pause();
         }
 
-        const info = criarElemento("div", "informacoes");
+        tela.replaceChildren();
+
+        if (midias.length === 0) {
+          tela.append(
+            criarPlaceholder(
+              produto,
+              "Fotos em breve ✨"
+            )
+          );
+
+          return;
+        }
+
+        const midia = midias[indice];
+        let elemento;
+
+        if (midia.tipo === "video") {
+          elemento = criarElemento("video");
+
+          elemento.controls = true;
+          elemento.preload = "none";
+          elemento.playsInline = true;
+
+          elemento.setAttribute(
+            "aria-label",
+            midia.descricao || `Vídeo de ${produto.nome}`
+          );
+
+          elemento.textContent =
+            "Seu navegador não suporta este vídeo.";
+        } else {
+          elemento = criarElemento("img");
+
+          elemento.alt =
+            midia.descricao || `Foto de ${produto.nome}`;
+
+          elemento.loading = "lazy";
+          elemento.decoding = "async";
+        }
+
+        elemento.addEventListener(
+          "error",
+          () => {
+            // Evita alterar uma mídia já substituída.
+            if (elemento.parentNode !== tela) {
+              return;
+            }
+
+            tela.replaceChildren(
+              criarPlaceholder(
+                produto,
+                "Não foi possível carregar esta mídia."
+              )
+            );
+          },
+          { once: true }
+        );
+
+        tela.append(elemento);
+        elemento.src = midia.arquivo;
+
+        const tipo =
+          midia.tipo === "video" ? "Vídeo" : "Foto";
+
+        contador.textContent =
+          `${indice + 1} de ${midias.length} · ${tipo}`;
+      }
+
+      carrossel.append(tela);
+
+      if (midias.length > 1) {
+        const controles = criarElemento(
+          "div",
+          "carrossel-controles"
+        );
+
+        const anterior = criarElemento(
+          "button",
+          "",
+          "❮"
+        );
+
+        anterior.type = "button";
+
+        anterior.setAttribute(
+          "aria-label",
+          `Mídia anterior de ${produto.nome}`
+        );
+
+        const proximo = criarElemento(
+          "button",
+          "",
+          "❯"
+        );
+
+        proximo.type = "button";
+
+        proximo.setAttribute(
+          "aria-label",
+          `Próxima mídia de ${produto.nome}`
+        );
+
+        anterior.addEventListener("click", () => {
+          indice =
+            (indice - 1 + midias.length) % midias.length;
+
+          mostrarMidia();
+        });
+
+        proximo.addEventListener("click", () => {
+          indice = (indice + 1) % midias.length;
+
+          mostrarMidia();
+        });
+
+        controles.append(
+          anterior,
+          contador,
+          proximo
+        );
+
+        carrossel.append(controles);
+      }
+
+      mostrarMidia();
+
+      return carrossel;
+    }
+
+    /* ATUALIZA O ESTADO DOS FILTROS */
+
+    function atualizarFiltros() {
+      botoesCategorias.forEach(botao => {
+        botao.setAttribute(
+          "aria-pressed",
+          String(
+            botao.dataset.categoria === categoriaAtual
+          )
+        );
+      });
+
+      areaSubcategorias.hidden =
+        categoriaAtual !== "Chaveiros";
+
+      areaSubcategorias
+        .querySelectorAll("button")
+        .forEach(botao => {
+          botao.setAttribute(
+            "aria-pressed",
+            String(
+              botao.dataset.subcategoria === subcategoriaAtual
+            )
+          );
+        });
+    }
+
+    /* CRIA OS BOTÕES DAS SUBCATEGORIAS */
+
+    function criarBotoesSubcategorias() {
+      areaSubcategorias.replaceChildren();
+
+      const opcoes = [
+        {
+          valor: "todos",
+          texto: "Todos os chaveiros"
+        },
+
+        ...subcategoriasChaveiros.map(nome => ({
+          valor: nome,
+          texto: nome
+        }))
+      ];
+
+      opcoes.forEach(opcao => {
+        const botao = criarElemento(
+          "button",
+          "",
+          opcao.texto
+        );
+
+        botao.type = "button";
+        botao.dataset.subcategoria = opcao.valor;
+
+        botao.setAttribute(
+          "aria-controls",
+          "catalogo"
+        );
+
+        botao.setAttribute(
+          "aria-pressed",
+          String(subcategoriaAtual === opcao.valor)
+        );
+
+        botao.addEventListener("click", () => {
+          subcategoriaAtual = opcao.valor;
+
+          atualizarFiltros();
+          mostrarProdutos();
+        });
+
+        areaSubcategorias.append(botao);
+      });
+    }
+
+    /* FILTRA E EXIBE OS PRODUTOS */
+
+    function mostrarProdutos() {
+      // Interrompe vídeos antes de trocar os produtos.
+      catalogo.querySelectorAll("video").forEach(video => {
+        video.pause();
+      });
+
+      catalogo.replaceChildren();
+
+      const lista = produtos.filter(produto => {
+        const correspondeCategoria =
+          categoriaAtual === "todos" ||
+          produto.categoria === categoriaAtual;
+
+        const correspondeSubcategoria =
+          categoriaAtual !== "Chaveiros" ||
+          subcategoriaAtual === "todos" ||
+          produto.subcategoria === subcategoriaAtual;
+
+        return (
+          correspondeCategoria &&
+          correspondeSubcategoria
+        );
+      });
+
+      let nomeFiltro =
+        categoriaAtual === "todos"
+          ? "Todas as categorias"
+          : categoriaAtual;
+
+      if (
+        categoriaAtual === "Chaveiros" &&
+        subcategoriaAtual !== "todos"
+      ) {
+        nomeFiltro += ` / ${subcategoriaAtual}`;
+      }
+
+      if (lista.length === 0) {
+        resumo.textContent =
+          `Nenhum produto cadastrado neste filtro: ${nomeFiltro}.`;
+
+        return;
+      }
+
+      const palavraProduto =
+        lista.length === 1 ? "produto" : "produtos";
+
+      resumo.textContent =
+        `${lista.length} ${palavraProduto} · ${nomeFiltro}`;
+
+      lista.forEach(produto => {
+        const card = criarElemento(
+          "article",
+          "produto"
+        );
+
+        card.append(criarCarrossel(produto));
+
+        const info = criarElemento(
+          "div",
+          "informacoes"
+        );
+
+        const categoriaExibida = produto.subcategoria
+          ? `${produto.categoria} · ${produto.subcategoria}`
+          : produto.categoria;
 
         info.append(
-          criarElemento("span", "categoria", produto.categoria),
-          criarElemento("h2", "", produto.nome),
-          criarElemento("p", "descricao", produto.descricao),
-          criarElemento("p", "preco", moeda.format(produto.preco))
+          criarElemento(
+            "span",
+            "categoria",
+            categoriaExibida
+          ),
+
+          criarElemento(
+            "h2",
+            "",
+            produto.nome
+          ),
+
+          criarElemento(
+            "p",
+            "descricao",
+            produto.descricao
+          ),
+
+          criarElemento(
+            "p",
+            "preco",
+            moeda.format(produto.preco)
+          )
         );
 
         const disponivel = produto.estoque > 0;
+        let textoEstoque = "Esgotado";
 
-        info.append(criarElemento(
-          "span",
-          disponivel ? "estoque" : "estoque esgotado",
-          disponivel
-            ? `${produto.estoque} unidade(s) disponível(is)`
-            : "Esgotado"
-        ));
-
-        if (produto.video) {
-          const detalhes = criarElemento("details");
-          const video = criarElemento("video");
-
-          video.controls = true;
-          video.preload = "none";
-          video.playsInline = true;
-          video.src = produto.video;
-          video.setAttribute("aria-label", `Vídeo de ${produto.nome}`);
-          video.textContent = "Seu navegador não suporta este vídeo.";
-
-          detalhes.append(
-            criarElemento("summary", "", "▶ Ver vídeo do produto"),
-            video
-          );
-
-          detalhes.addEventListener("toggle", () => {
-            if (!detalhes.open) video.pause();
-          });
-
-          info.append(detalhes);
+        if (disponivel) {
+          textoEstoque =
+            produto.estoque === 1
+              ? "1 unidade disponível"
+              : `${produto.estoque} unidades disponíveis`;
         }
+
+        info.append(
+          criarElemento(
+            "span",
+            disponivel
+              ? "estoque"
+              : "estoque esgotado",
+            textoEstoque
+          )
+        );
 
         card.append(info);
         catalogo.append(card);
       });
     }
 
-    botoes.forEach(botao => {
-      botao.addEventListener("click", () => {
-        botoes.forEach(item => {
-          item.setAttribute("aria-pressed", String(item === botao));
-        });
+    /* CLIQUES NAS CATEGORIAS PRINCIPAIS */
 
-        mostrarProdutos(botao.dataset.categoria);
+    botoesCategorias.forEach(botao => {
+      botao.addEventListener("click", () => {
+        categoriaAtual = botao.dataset.categoria;
+
+        // Ao trocar de categoria, limpa o subfiltro.
+        subcategoriaAtual = "todos";
+
+        atualizarFiltros();
+        mostrarProdutos();
       });
     });
 
+    /* INICIALIZAÇÃO DO CATÁLOGO */
+
+    criarBotoesSubcategorias();
+    atualizarFiltros();
     mostrarProdutos();
   </script>
 </body>
