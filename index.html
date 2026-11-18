@@ -357,7 +357,7 @@
       font-weight: bold;
     }
 
-    .preco- {
+    .preco-forma {
       margin: 0 0 8px;
       color: var(--suave);
       font-size: 13px;
@@ -535,7 +535,7 @@
     <div class="logo">
       <img
         src="imagens/logo.png"
-        alt="Universo Pixelado"
+        alt="Universo elado"
       >
     </div>
   </header>
@@ -612,8 +612,8 @@
         id="forma-pagamento"
         aria-describedby="pagamento-aviso"
       >
-        <option value="pix">
-          PIX (5% de desconto)
+        <option value="">
+          PIX / Dinheiro (5% de desconto)
         </option>
     
         <option value="cartao">
@@ -710,7 +710,7 @@
          Coloque sempre o preço ORIGINAL.
 
          O site calcula automaticamente:
-         PIX: preço original.
+         PIX e Dinheiro: preço original.
          Cartão e Link: preço original + 5%.
 
        Use ponto nos centavos, por exemplo:
@@ -908,7 +908,7 @@
 
     const formasPagamento = {
       pix: {
-        nome: "PIX (5% de desconto)",
+        nome: "PIX / Dinheiro (5% de desconto)",
         acrescimoPercentual: 0
       },
     
@@ -991,7 +991,12 @@
           calcularPrecoFinal(item.produto.preco)
         );
     
-        item.forma.textContent = `Por unidade • ${forma.nome}`;
+          item.forma.textContent =
+          pagamentoAtual === "pix"
+            ? "Por unidade • PIX"
+            : `Por unidade • ${forma.nome}`;
+    
+        item.desconto.hidden = pagamentoAtual !== "pix";
       });
     }
 
@@ -1387,18 +1392,28 @@
         const preco = criarElemento("p", "preco");
         const forma = criarElemento("p", "preco-forma");
         
+        const desconto = criarElemento(
+          "span",
+          "preco-detalhe desconto",
+          "(5% de desconto)"
+        );
+        
+        desconto.hidden = pagamentoAtual !== "pix";
+        
         info.append(
           criarElemento("span", "categoria", categoriaExibida),
           criarElemento("h2", "", produto.nome),
           criarElemento("p", "descricao", produto.descricao),
           preco,
-          forma
+          forma,
+          desconto
         );
         
         precosVisiveis.push({
           produto,
           preco,
-          forma
+          forma,
+          desconto
         });
 
         const disponivel = produto.estoque > 0;
