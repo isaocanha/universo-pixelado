@@ -353,8 +353,8 @@
       display: inline-block;
       margin: 0 0 14px;
       padding: 5px 9px;
-      background: #e9f8ef;
-      color: #23623d;
+      background: #000000;
+      color: #ffffff;
       border-radius: 8px;
       font-size: 12px;
       font-weight: bold;
@@ -815,7 +815,7 @@
 📣 AVISO: Cada chaveiro pode apresentar leves alterações nos tons das cores, por se tratar de uma fabricação artesanal. ✨`,
 
         preco: 15.00,
-        estoque: 1,
+        estoque: "Encomenda (Prazo de 7 dias)",
         emoji: "⚽",
 
         midias: [
@@ -1405,13 +1405,24 @@
           desconto
         });
 
-        const disponivel = produto.estoque > 0;
-
-        const textoEstoque = disponivel
-          ? produto.estoque === 1
+        const porEncomenda =
+          typeof produto.estoque === "string" &&
+          produto.estoque.trim() !== "";
+        
+        const disponivel =
+          porEncomenda || produto.estoque > 0;
+        
+        let textoEstoque;
+        
+        if (porEncomenda) {
+          textoEstoque = produto.estoque;
+        } else if (produto.estoque > 0) {
+          textoEstoque = produto.estoque === 1
             ? "1 unidade disponível"
-            : `${produto.estoque} unidades disponíveis`
-          : "Esgotado";
+            : `${produto.estoque} unidades disponíveis`;
+        } else {
+          textoEstoque = "Esgotado";
+        }
 
         const areaEstoque = criarElemento("div");
 
