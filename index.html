@@ -610,7 +610,7 @@
 
       <select
         id="forma-pagamento"
-        aria-describedby="pagamento-explicacao pagamento-aviso"
+        aria-describedby="pagamento-aviso"
       >
         <option value="pix">
           PIX — (5% de desconto)
@@ -624,13 +624,7 @@
           Link de Pagamento (débito e crédito)
         </option>
       </select>
-
-      <p
-        id="pagamento-explicacao"
-        class="pagamento-explicacao"
-        role="status"
-      </p>
-
+      
       <p
         id="pagamento-aviso"
         class="pagamento-aviso"
@@ -953,10 +947,6 @@
       "#forma-pagamento"
     );
 
-    const explicacaoPagamento = document.querySelector(
-      "#pagamento-explicacao"
-    );
-
     const modalGaleria = document.querySelector("#modal-galeria");
     const modalTitulo = document.querySelector("#modal-titulo");
     const modalConteudo = document.querySelector("#modal-conteudo");
@@ -1007,8 +997,6 @@
 
     function atualizarPrecos() {
       const forma = formasPagamento[pagamentoAtual];
-
-      explicacaoPagamento.textContent = forma.explicacao;
 
       precosVisiveis.forEach(item => {
         item.preco.textContent = moeda.format(
