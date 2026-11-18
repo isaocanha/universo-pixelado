@@ -607,31 +607,16 @@
       <label for="forma-pagamento">
         💳 Escolha a forma de pagamento
       </label>
-
-      <select
-        id="forma-pagamento"
-        aria-describedby="pagamento-aviso"
-      >
+    
+      <select id="forma-pagamento">
         <option value="pix">
-          PIX — (5% de desconto)
+          PIX (5% de desconto)
         </option>
-
+    
         <option value="cartao">
-          Cartão (Apenas aproximação)
-        </option>
-
-        <option value="link">
-          Link de Pagamento (débito e crédito)
+          Cartão (Apenas Aproximação) / Link de Pagamento (débito e crédito)
         </option>
       </select>
-      
-      <p
-        id="pagamento-aviso"
-        class="pagamento-aviso"
-      >
-        Esta seleção apenas calcula os valores do catálogo.
-        Não realiza pagamento nem reserva produtos.
-      </p>
     </div>
 
     <p
@@ -906,27 +891,13 @@
 
     const formasPagamento = {
       pix: {
-        nome: "PIX",
-        acrescimoPercentual: 0,
-        detalhe: "(5% de desconto)",
-        explicacao:
-          "Os preços exibidos estão na opção PIX, usando o preço original cadastrado."
+        nome: "PIX (5% de desconto)",
+        acrescimoPercentual: 0
       },
-
+    
       cartao: {
-        nome: "Cartão (Apenas aproximação)",
-        acrescimoPercentual: 5,
-        detalhe: "Acréscimo de 5% já incluído",
-        explicacao:
-          "Os preços exibidos incluem 5% de acréscimo sobre o preço original."
-      },
-
-      link: {
-        nome: "Link de Pagamento (débito e crédito)",
-        acrescimoPercentual: 2,
-        detalhe: "Acréscimo de 2% já incluído",
-        explicacao:
-          "Os preços exibidos incluem 2% de acréscimo sobre o preço original."
+        nome: "Cartão (Apenas Aproximação) / Link de Pagamento (débito e crédito)",
+        acrescimoPercentual: 5
       }
     };
 
@@ -997,19 +968,13 @@
 
     function atualizarPrecos() {
       const forma = formasPagamento[pagamentoAtual];
-
+    
       precosVisiveis.forEach(item => {
         item.preco.textContent = moeda.format(
           calcularPrecoFinal(item.produto.preco)
         );
-
+    
         item.forma.textContent = `Por unidade • ${forma.nome}`;
-        item.detalhe.textContent = forma.detalhe;
-
-        item.detalhe.classList.toggle(
-          "desconto",
-          pagamentoAtual === "pix"
-        );
       });
     }
 
@@ -1404,22 +1369,19 @@
 
         const preco = criarElemento("p", "preco");
         const forma = criarElemento("p", "preco-forma");
-        const detalhe = criarElemento("span", "preco-detalhe");
-
+        
         info.append(
           criarElemento("span", "categoria", categoriaExibida),
           criarElemento("h2", "", produto.nome),
           criarElemento("p", "descricao", produto.descricao),
           preco,
-          forma,
-          detalhe
+          forma
         );
-
+        
         precosVisiveis.push({
           produto,
           preco,
-          forma,
-          detalhe
+          forma
         });
 
         const disponivel = produto.estoque > 0;
