@@ -608,7 +608,10 @@
         💳 Escolha a forma de pagamento
       </label>
     
-      <select id="forma-pagamento">
+      <select
+        id="forma-pagamento"
+        aria-describedby="pagamento-aviso"
+      >
         <option value="pix">
           PIX (5% de desconto)
         </option>
@@ -617,6 +620,21 @@
           Cartão (Apenas Aproximação) / Link de Pagamento (débito e crédito)
         </option>
       </select>
+      </select>
+
+      <p
+        id="pagamento-explicacao"
+        class="pagamento-explicacao"
+        role="status"
+      </p>
+
+      <p
+        id="pagamento-aviso"
+        class="pagamento-aviso"
+      >
+        Esta seleção apenas calcula os valores do catálogo.
+        Não realiza pagamento nem reserva produtos.
+      </p>
     </div>
 
     <p
