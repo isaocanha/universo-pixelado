@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
 
   <meta
     name="description"
@@ -52,7 +55,7 @@
       display: none !important;
     }
 
-    /* CABEÇALHO: SOMENTE LOGO E FUNDO */
+    /* CABEÇALHO */
 
     header {
       display: flex;
@@ -177,6 +180,15 @@
       color: var(--texto);
       border: 2px solid var(--borda);
       border-radius: 10px;
+    }
+
+    /* MENSAGEM ABAIXO DA SELEÇÃO DE PAGAMENTO */
+
+    .pagamento-aviso {
+      margin: 14px 0 0;
+      color: var(--suave);
+      font-size: 13px;
+      line-height: 1.6;
     }
 
     /* CATÁLOGO */
@@ -360,18 +372,29 @@
       font-weight: bold;
     }
 
-    .estoque {
+    /* DISPONIBILIDADE: SEM QUANTIDADE DE ESTOQUE */
+
+    .disponibilidade {
       display: inline-block;
       padding: 5px 10px;
-      background: #e9f8ef;
-      color: #23623d;
       border-radius: 8px;
       font-size: 13px;
+      font-weight: bold;
     }
 
-    .estoque.esgotado {
+    .disponibilidade.disponivel {
+      background: #e9f8ef;
+      color: #23623d;
+    }
+
+    .disponibilidade.esgotado {
       background: #fff0f0;
       color: #9b3434;
+    }
+
+    .disponibilidade.encomenda {
+      background: #fff5df;
+      color: #805b12;
     }
 
     /* GALERIA AMPLIADA */
@@ -582,17 +605,17 @@
       hidden
     ></nav>
 
-    <!--
-      Os valores destas opções precisam corresponder
-      às chaves de formasPagamento no JavaScript.
-    -->
+    <!-- FORMA DE PAGAMENTO E AVISO -->
 
     <div class="pagamento">
       <label for="forma-pagamento">
         💳 Escolha a forma de pagamento
       </label>
 
-      <select id="forma-pagamento">
+      <select
+        id="forma-pagamento"
+        aria-describedby="pagamento-aviso"
+      >
         <option value="pix" selected>
           PIX / Dinheiro (5% de desconto)
         </option>
@@ -601,6 +624,15 @@
           Cartão (apenas aproximação) / Link de Pagamento (débito e crédito)
         </option>
       </select>
+
+      <p
+        id="pagamento-aviso"
+        class="pagamento-aviso"
+      >
+        Esta seleção apenas calcula os valores do catálogo.
+        <br>
+        Não realiza pagamento nem reserva produtos.
+      </p>
     </div>
 
     <p
@@ -674,27 +706,31 @@
     /* ==========================================
        PRODUTOS E SERVIÇOS
 
-       Coloque sempre o preço ORIGINAL em "preco".
+       PREÇO:
+       Coloque o preço original no campo "preco".
 
-       PIX / Dinheiro:
-         Preço original.
-
-       Cartão / Link:
-         Preço original + 5%.
+       Mantido o cálculo do código anterior:
+       - PIX / Dinheiro: preço original.
+       - Cartão / Link: preço original + 5%.
 
        Exemplo:
-         preco: 15.00
+       preco: 15.00
 
-         PIX / Dinheiro: R$ 15,00
-         Cartão / Link: R$ 15,75
-
-       Os valores são arredondados por unidade
-       para duas casas decimais.
+       PIX / Dinheiro: R$ 15,00
+       Cartão / Link: R$ 15,75
 
        Use ponto nos centavos, não vírgula.
 
-       Use estoque: 0 para mostrar "Esgotado".
-       Use mi: [] quando não houver arquivos.
+       DISPONIBILIDADE:
+       Não é necessário cadastrar estoque.
+
+       Use uma destas opções:
+       disponibilidade: "Disponível"
+       disponibilidade: "Esgotado"
+       disponibilidade: "Encomenda"
+
+       MÍDIAS:
+       Use midias: [] quando não houver arquivos.
        ========================================== */
 
     const produtos = [
@@ -707,7 +743,7 @@
 🔎 QUANTIDADE: 1`,
 
         preco: 0.50,
-        estoque: 1000,
+        disponibilidade: "Disponível",
         emoji: "📄",
         midias: []
       },
@@ -721,7 +757,7 @@
 🔎 QUANTIDADE: 1`,
 
         preco: 1.00,
-        estoque: 1000,
+        disponibilidade: "Disponível",
         emoji: "📄",
         midias: []
       },
@@ -735,7 +771,7 @@
 🔎 QUANTIDADE: 1`,
 
         preco: 1.00,
-        estoque: 1000,
+        disponibilidade: "Disponível",
         emoji: "📄",
         midias: []
       },
@@ -749,7 +785,7 @@
 🔎 QUANTIDADE: 1`,
 
         preco: 2.00,
-        estoque: 1000,
+        disponibilidade: "Disponível",
         emoji: "📄",
         midias: []
       },
@@ -761,7 +797,7 @@
         descricao: `🔎 QUANTIDADE: 1`,
 
         preco: 0.50,
-        estoque: 1000,
+        disponibilidade: "Disponível",
         emoji: "📄",
         midias: []
       },
@@ -779,7 +815,7 @@
 📣 AVISO: Cada chaveiro pode apresentar leves alterações nos tons das cores, por se tratar de uma fabricação artesanal. ✨`,
 
         preco: 15.00,
-        estoque: 1,
+        disponibilidade: "Disponível",
         emoji: "⚽",
 
         midias: [
@@ -815,7 +851,7 @@
 📣 AVISO: Cada chaveiro pode apresentar leves alterações nos tons das cores, por se tratar de uma fabricação artesanal. ✨`,
 
         preco: 15.00,
-        estoque: "1",
+        disponibilidade: "Disponível",
         emoji: "⚽",
 
         midias: [
@@ -851,7 +887,7 @@
 📣 AVISO: Cada chaveiro pode apresentar leves alterações nos tons das cores, por se tratar de uma fabricação artesanal. ✨`,
 
         preco: 15.00,
-        estoque: 1,
+        disponibilidade: "Disponível",
         emoji: "🚗",
 
         midias: [
@@ -873,7 +909,7 @@
           }
         ]
       },
-      
+
       {
         nome: "Mitsubishi",
         categoria: "Chaveiros de Acrílico",
@@ -887,7 +923,7 @@
 📣 AVISO: Cada chaveiro pode apresentar leves alterações nos tons das cores, por se tratar de uma fabricação artesanal. ✨`,
 
         preco: 15.00,
-        estoque: "1",
+        disponibilidade: "Disponível",
         emoji: "🚗",
 
         midias: [
@@ -909,7 +945,6 @@
           }
         ]
       }
-      
     ];
 
     /* FORMAS DE PAGAMENTO */
@@ -923,6 +958,25 @@
       cartao: {
         nome: "Cartão (apenas aproximação) / Link de Pagamento (débito e crédito)",
         acrescimoPercentual: 5
+      }
+    };
+
+    /* STATUS DE DISPONIBILIDADE */
+
+    const statusDisponibilidade = {
+      disponivel: {
+        texto: "Disponível",
+        classe: "disponivel"
+      },
+
+      esgotado: {
+        texto: "Esgotado",
+        classe: "esgotado"
+      },
+
+      encomenda: {
+        texto: "Encomenda",
+        classe: "encomenda"
       }
     };
 
@@ -961,6 +1015,8 @@
       currency: "BRL"
     });
 
+    /* CRIAÇÃO DE ELEMENTOS */
+
     function criarElemento(tag, classe, texto) {
       const elemento = document.createElement(tag);
 
@@ -980,11 +1036,15 @@
     function obterPagamentoAtual() {
       const valor = seletorPagamento.value;
 
-      if (Object.prototype.hasOwnProperty.call(formasPagamento, valor)) {
+      if (
+        Object.prototype.hasOwnProperty.call(
+          formasPagamento,
+          valor
+        )
+      ) {
         return valor;
       }
 
-      // Evita erro caso o valor do seletor seja alterado sem querer.
       seletorPagamento.value = "pix";
       return "pix";
     }
@@ -1010,7 +1070,6 @@
 
       precosVisiveis.forEach(item => {
         // Sempre calcula a partir do preço original.
-        // Nunca acrescenta 5% sobre um preço já aumentado.
         const precoFinal = calcularPrecoFinal(
           item.produto.preco,
           pagamento
@@ -1025,7 +1084,40 @@
       });
     }
 
-    seletorPagamento.addEventListener("change", atualizarPrecos);
+    seletorPagamento.addEventListener(
+      "change",
+      atualizarPrecos
+    );
+
+    /* DISPONIBILIDADE DO PRODUTO */
+
+    function obterDisponibilidade(produto) {
+      // Aceita "Disponível" e "Disponivel",
+      // além de variações entre maiúsculas e minúsculas.
+      const valor = String(produto.disponibilidade || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+      if (
+        Object.prototype.hasOwnProperty.call(
+          statusDisponibilidade,
+          valor
+        )
+      ) {
+        return statusDisponibilidade[valor];
+      }
+
+      // Um status ausente ou inválido não será
+      // anunciado como disponível por engano.
+      console.warn(
+        `Disponibilidade inválida para "${produto.nome}". ` +
+        'Use "Disponível", "Esgotado" ou "Encomenda".'
+      );
+
+      return statusDisponibilidade.esgotado;
+    }
 
     /* ITENS SEM MÍDIA */
 
@@ -1150,7 +1242,10 @@
 
       let botaoAmpliar = null;
 
-      const contador = criarElemento("span", "carrossel-contador");
+      const contador = criarElemento(
+        "span",
+        "carrossel-contador"
+      );
 
       contador.setAttribute("role", "status");
       contador.setAttribute("aria-atomic", "true");
@@ -1175,7 +1270,9 @@
         if (midia.tipo === "video") {
           elemento = criarElemento("video");
           elemento.controls = true;
-          elemento.preload = permitirAmpliacao ? "none" : "metadata";
+          elemento.preload = permitirAmpliacao
+            ? "none"
+            : "metadata";
           elemento.playsInline = true;
 
           elemento.setAttribute(
@@ -1192,7 +1289,10 @@
             midia.descricao ||
             `Foto ${indice + 1} de ${produto.nome}`;
 
-          elemento.loading = permitirAmpliacao ? "lazy" : "eager";
+          elemento.loading = permitirAmpliacao
+            ? "lazy"
+            : "eager";
+
           elemento.decoding = "async";
 
           if (permitirAmpliacao) {
@@ -1205,18 +1305,22 @@
           }
         }
 
-        elemento.addEventListener("error", () => {
-          if (elemento.parentNode !== tela) {
-            return;
-          }
+        elemento.addEventListener(
+          "error",
+          () => {
+            if (elemento.parentNode !== tela) {
+              return;
+            }
 
-          tela.replaceChildren(
-            criarPlaceholder(
-              produto,
-              "Não foi possível carregar esta mídia."
-            )
-          );
-        }, { once: true });
+            tela.replaceChildren(
+              criarPlaceholder(
+                produto,
+                "Não foi possível carregar esta mídia."
+              )
+            );
+          },
+          { once: true }
+        );
 
         tela.append(elemento);
         elemento.src = midia.arquivo;
@@ -1230,7 +1334,10 @@
       carrossel.append(tela);
 
       if (midias.length > 1) {
-        const controles = criarElemento("div", "carrossel-controles");
+        const controles = criarElemento(
+          "div",
+          "carrossel-controles"
+        );
 
         const anterior = criarElemento("button", "", "❮");
         anterior.type = "button";
@@ -1277,7 +1384,10 @@
         );
 
         botaoAmpliar.setAttribute("aria-haspopup", "dialog");
-        botaoAmpliar.setAttribute("aria-controls", "modal-galeria");
+        botaoAmpliar.setAttribute(
+          "aria-controls",
+          "modal-galeria"
+        );
 
         botaoAmpliar.addEventListener("click", () => {
           abrirGaleria(produto, indice, botaoAmpliar);
@@ -1301,12 +1411,16 @@
         );
       });
 
-      areaSubcategorias.querySelectorAll("button").forEach(botao => {
-        botao.setAttribute(
-          "aria-pressed",
-          String(botao.dataset.subcategoria === subcategoriaAtual)
-        );
-      });
+      areaSubcategorias.querySelectorAll("button").forEach(
+        botao => {
+          botao.setAttribute(
+            "aria-pressed",
+            String(
+              botao.dataset.subcategoria === subcategoriaAtual
+            )
+          );
+        }
+      );
     }
 
     /* SUBCATEGORIAS */
@@ -1341,7 +1455,11 @@
       ];
 
       opcoes.forEach(opcao => {
-        const botao = criarElemento("button", "", opcao.texto);
+        const botao = criarElemento(
+          "button",
+          "",
+          opcao.texto
+        );
 
         botao.type = "button";
         botao.dataset.subcategoria = opcao.valor;
@@ -1402,7 +1520,9 @@
       }
 
       resumo.textContent =
-        `${lista.length} ${lista.length === 1 ? "item" : "itens"} · ${nomeFiltro}`;
+        `${lista.length} ${
+          lista.length === 1 ? "item" : "itens"
+        } · ${nomeFiltro}`;
 
       lista.forEach(produto => {
         const card = criarElemento("article", "produto");
@@ -1442,36 +1562,20 @@
           desconto
         });
 
-        const porEncomenda =
-          typeof produto.estoque === "string" &&
-          produto.estoque.trim() !== "";
-        
-        const disponivel =
-          porEncomenda || produto.estoque > 0;
-        
-        let textoEstoque;
-        
-        if (porEncomenda) {
-          textoEstoque = produto.estoque;
-        } else if (produto.estoque > 0) {
-          textoEstoque = produto.estoque === 1
-            ? "1 unidade disponível"
-            : `${produto.estoque} unidades disponíveis`;
-        } else {
-          textoEstoque = "Esgotado";
-        }
+        // Mostra somente o status, sem quantidade de estoque.
+        const status = obterDisponibilidade(produto);
 
-        const areaEstoque = criarElemento("div");
+        const areaDisponibilidade = criarElemento("div");
 
-        areaEstoque.append(
+        areaDisponibilidade.append(
           criarElemento(
             "span",
-            disponivel ? "estoque" : "estoque esgotado",
-            textoEstoque
+            `disponibilidade ${status.classe}`,
+            status.texto
           )
         );
 
-        info.append(areaEstoque);
+        info.append(areaDisponibilidade);
         card.append(info);
         catalogo.append(card);
       });
