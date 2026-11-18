@@ -3,10 +3,7 @@
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <meta
     name="description"
@@ -151,13 +148,12 @@
       font-weight: bold;
     }
 
-    /* SELETOR DE PAGAMENTO */
+    /* FORMA DE PAGAMENTO */
 
     .pagamento {
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto 26px;
       padding: 20px;
-
       background: white;
       border: 1px solid var(--borda);
       border-radius: 16px;
@@ -175,23 +171,12 @@
     .pagamento select {
       display: block;
       width: 100%;
+      min-width: 0;
       padding: 12px;
       background: var(--fundo);
       color: var(--texto);
       border: 2px solid var(--borda);
       border-radius: 10px;
-    }
-
-    .pagamento-explicacao {
-      margin: 12px 0 0;
-      color: var(--suave);
-      font-size: 14px;
-    }
-
-    .pagamento-aviso {
-      margin: 8px 0 0;
-      color: var(--suave);
-      font-size: 12px;
     }
 
     /* CATÁLOGO */
@@ -358,25 +343,21 @@
     }
 
     .preco-forma {
-      margin: 0 0 8px;
+      margin: 0 0 12px;
       color: var(--suave);
       font-size: 13px;
-    }
-
-    .preco-detalhe {
-      display: inline-block;
-      margin: 0 0 14px;
-      padding: 5px 9px;
-      background: #f0e7ff;
-      color: var(--roxo);
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: bold;
+      overflow-wrap: anywhere;
     }
 
     .preco-detalhe.desconto {
+      display: inline-block;
+      margin: 0 0 14px;
+      padding: 5px 9px;
       background: #e9f8ef;
       color: #23623d;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: bold;
     }
 
     .estoque {
@@ -535,7 +516,7 @@
     <div class="logo">
       <img
         src="imagens/logo.png"
-        alt="Universo elado"
+        alt="Universo Pixelado"
       >
     </div>
   </header>
@@ -601,40 +582,25 @@
       hidden
     ></nav>
 
-    <!-- FORMA DE PAGAMENTO -->
+    <!--
+      Os valores destas opções precisam corresponder
+      às chaves de formasPagamento no JavaScript.
+    -->
 
     <div class="pagamento">
       <label for="forma-pagamento">
         💳 Escolha a forma de pagamento
       </label>
-    
-      <select
-        id="forma-pagamento"
-        aria-describedby="pagamento-aviso"
-      >
-        <option value="">
+
+      <select id="forma-pagamento">
+        <option value="pix" selected>
           PIX / Dinheiro (5% de desconto)
         </option>
-    
+
         <option value="cartao">
           Cartão (Apenas Aproximação) / Link de Pagamento (débito e crédito)
         </option>
       </select>
-      </select>
-
-      <p
-        id="pagamento-explicacao"
-        class="pagamento-explicacao"
-        role="status"
-      </p>
-
-      <p
-        id="pagamento-aviso"
-        class="pagamento-aviso"
-      >
-        Esta seleção apenas calcula os valores do catálogo.
-        Não realiza pagamento nem reserva produtos.
-      </p>
     </div>
 
     <p
@@ -657,8 +623,10 @@
 
   <footer>
     <p>✦ Universo Pixelado ✦</p>
+
     <p>
-      ✦ Aceitamos PIX, Dinheiro, Cartão (apenas aproximação) e Link de Pagamento (débito e crédito). ✦
+      ✦ Aceitamos PIX, Dinheiro, Cartão (apenas aproximação)
+      e Link de Pagamento (débito e crédito). ✦
     </p>
   </footer>
 
@@ -706,24 +674,27 @@
     /* ==========================================
        PRODUTOS E SERVIÇOS
 
-       preco:
-         Coloque sempre o preço ORIGINAL.
+       Coloque sempre o preço ORIGINAL em "preco".
 
-         O site calcula automaticamente:
-         PIX e Dinheiro: preço original.
-         Cartão e Link: preço original + 5%.
+       PIX / Dinheiro:
+         Preço original.
 
-       Use ponto nos centavos, por exemplo:
+       Cartão / Link:
+         Preço original + 5%.
+
+       Exemplo:
          preco: 15.00
 
-       O cálculo é feito por unidade, com
-       arredondamento para centavos.
+         PIX / Dinheiro: R$ 15,00
+         Cartão / Link: R$ 15,75
 
-       estoque:
-         Use 0 para mostrar "Esgotado".
+       Os valores são arredondados por unidade
+       para duas casas decimais.
 
-       midias:
-         Use [] se não houver fotos ou vídeos.
+       Use ponto nos centavos, não vírgula.
+
+       Use estoque: 0 para mostrar "Esgotado".
+       Use midias: [] quando não houver arquivos.
        ========================================== */
 
     const produtos = [
@@ -808,7 +779,7 @@
 📣 AVISO: Cada chaveiro pode apresentar leves alterações nos tons das cores, por se tratar de uma fabricação artesanal. ✨`,
 
         preco: 15.00,
-        estoque: 1,
+        estoque: 0,
         emoji: "⚽",
 
         midias: [
@@ -904,14 +875,14 @@
       }
     ];
 
-    /* CONFIGURAÇÃO DAS FORMAS DE PAGAMENTO */
+    /* FORMAS DE PAGAMENTO */
 
     const formasPagamento = {
       pix: {
-        nome: "PIX / Dinheiro (5% de desconto)",
+        nome: "PIX / Dinheiro",
         acrescimoPercentual: 0
       },
-    
+
       cartao: {
         nome: "Cartão (Apenas Aproximação) / Link de Pagamento (débito e crédito)",
         acrescimoPercentual: 5
@@ -942,11 +913,10 @@
 
     let categoriaAtual = "todos";
     let subcategoriaAtual = "todos";
-    let pagamentoAtual = seletorPagamento.value;
     let elementoQueAbriuGaleria = null;
 
     // Guarda referências aos preços dos cards visíveis.
-    // Assim, trocar o pagamento não reinicia os carrosséis.
+    // Trocar o pagamento não reinicia os carrosséis.
     let precosVisiveis = [];
 
     const moeda = new Intl.NumberFormat("pt-BR", {
@@ -968,13 +938,27 @@
       return elemento;
     }
 
+    /* VALIDA A FORMA DE PAGAMENTO */
+
+    function obterPagamentoAtual() {
+      const valor = seletorPagamento.value;
+
+      if (Object.prototype.hasOwnProperty.call(formasPagamento, valor)) {
+        return valor;
+      }
+
+      // Evita erro caso o valor do seletor seja alterado sem querer.
+      seletorPagamento.value = "pix";
+      return "pix";
+    }
+
     /* CÁLCULO DO PREÇO FINAL */
 
-    function calcularPrecoFinal(precoOriginal) {
+    function calcularPrecoFinal(precoOriginal, pagamento) {
       const originalCentavos = Math.round(precoOriginal * 100);
 
       const percentual =
-        formasPagamento[pagamentoAtual].acrescimoPercentual;
+        formasPagamento[pagamento].acrescimoPercentual;
 
       const finalCentavos = Math.round(
         originalCentavos * (100 + percentual) / 100
@@ -984,30 +968,31 @@
     }
 
     function atualizarPrecos() {
-      const forma = formasPagamento[pagamentoAtual];
-    
+      const pagamento = obterPagamentoAtual();
+      const forma = formasPagamento[pagamento];
+
       precosVisiveis.forEach(item => {
-        item.preco.textContent = moeda.format(
-          calcularPrecoFinal(item.produto.preco)
+        // Sempre calcula a partir do preço original.
+        // Nunca acrescenta 5% sobre um preço já aumentado.
+        const precoFinal = calcularPrecoFinal(
+          item.produto.preco,
+          pagamento
         );
-    
-          item.forma.textContent =
-          pagamentoAtual === "pix"
-            ? "Por unidade • PIX"
-            : `Por unidade • ${forma.nome}`;
-    
-        item.desconto.hidden = pagamentoAtual !== "pix";
+
+        item.preco.textContent = moeda.format(precoFinal);
+
+        item.forma.textContent =
+          `Por unidade • ${forma.nome}`;
+
+        item.desconto.hidden = pagamento !== "pix";
       });
     }
 
-    seletorPagamento.addEventListener("change", () => {
-      pagamentoAtual = seletorPagamento.value;
-      atualizarPrecos();
-    });
+    seletorPagamento.addEventListener("change", atualizarPrecos);
 
-    /* MENSAGEM PARA ITENS SEM MÍDIA */
+    /* ITENS SEM MÍDIA */
 
-    function criarPlaceholder(produto, mensagem) {
+    function criarPlaceholder(produto, mensagem = "") {
       const placeholder = criarElemento("div", "sem-midia");
 
       const emoji = criarElemento(
@@ -1017,14 +1002,13 @@
       );
 
       emoji.setAttribute("aria-hidden", "true");
+      placeholder.append(emoji);
 
-      const texto = criarElemento(
-        "p",
-        "sem-midia-texto",
-        mensagem
-      );
-
-      placeholder.append(emoji, texto);
+      if (mensagem) {
+        placeholder.append(
+          criarElemento("p", "sem-midia-texto", mensagem)
+        );
+      }
 
       return placeholder;
     }
@@ -1083,6 +1067,7 @@
       }
     });
 
+    // Também executado ao fechar com Escape.
     modalGaleria.addEventListener("close", () => {
       modalConteudo.querySelectorAll("video").forEach(video => {
         video.pause();
@@ -1114,6 +1099,7 @@
       const tela = criarElemento("div", "carrossel-tela");
 
       carrossel.setAttribute("role", "group");
+
       carrossel.setAttribute(
         "aria-label",
         `Fotos e vídeos de ${produto.nome}`
@@ -1128,6 +1114,7 @@
       let botaoAmpliar = null;
 
       const contador = criarElemento("span", "carrossel-contador");
+
       contador.setAttribute("role", "status");
       contador.setAttribute("aria-atomic", "true");
 
@@ -1141,10 +1128,7 @@
         tela.replaceChildren();
 
         if (midias.length === 0) {
-          tela.append(
-            criarPlaceholder(produto)
-          );
-
+          tela.append(criarPlaceholder(produto));
           return;
         }
 
@@ -1213,6 +1197,7 @@
 
         const anterior = criarElemento("button", "", "❮");
         anterior.type = "button";
+
         anterior.setAttribute(
           "aria-label",
           `Mídia anterior de ${produto.nome}`
@@ -1220,6 +1205,7 @@
 
         const proximo = criarElemento("button", "", "❯");
         proximo.type = "button";
+
         proximo.setAttribute(
           "aria-label",
           `Próxima mídia de ${produto.nome}`
@@ -1247,10 +1233,12 @@
         );
 
         botaoAmpliar.type = "button";
+
         botaoAmpliar.setAttribute(
           "aria-label",
           `Ampliar fotos e vídeos de ${produto.nome}`
         );
+
         botaoAmpliar.setAttribute("aria-haspopup", "dialog");
         botaoAmpliar.setAttribute("aria-controls", "modal-galeria");
 
@@ -1284,7 +1272,7 @@
       });
     }
 
-    /* BOTÕES DAS SUBCATEGORIAS */
+    /* SUBCATEGORIAS */
 
     function criarBotoesSubcategorias() {
       areaSubcategorias.replaceChildren();
@@ -1320,7 +1308,9 @@
 
         botao.type = "button";
         botao.dataset.subcategoria = opcao.valor;
+
         botao.setAttribute("aria-controls", "catalogo");
+
         botao.setAttribute(
           "aria-pressed",
           String(subcategoriaAtual === opcao.valor)
@@ -1371,7 +1361,6 @@
         resumo.textContent =
           `Nenhum item cadastrado neste filtro: ${nomeFiltro}.`;
 
-        atualizarPrecos();
         return;
       }
 
@@ -1391,15 +1380,15 @@
 
         const preco = criarElemento("p", "preco");
         const forma = criarElemento("p", "preco-forma");
-        
+
         const desconto = criarElemento(
           "span",
           "preco-detalhe desconto",
           "(5% de desconto)"
         );
-        
-        desconto.hidden = pagamentoAtual !== "pix";
-        
+
+        desconto.hidden = obterPagamentoAtual() !== "pix";
+
         info.append(
           criarElemento("span", "categoria", categoriaExibida),
           criarElemento("h2", "", produto.nome),
@@ -1408,7 +1397,7 @@
           forma,
           desconto
         );
-        
+
         precosVisiveis.push({
           produto,
           preco,
@@ -1457,6 +1446,7 @@
 
     /* INICIALIZAÇÃO */
 
+    obterPagamentoAtual();
     criarBotoesSubcategorias();
     atualizarFiltros();
     mostrarProdutos();
