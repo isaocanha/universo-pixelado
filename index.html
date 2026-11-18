@@ -10,7 +10,7 @@
 
   <meta
     name="description"
-    content="Conheça o catálogo da Universo Pixelado: cópia, digitalização, chaveiros, adesivos e outros produtos."
+    content="Conheça o catálogo da Universo Pixelado: cópia, digitalização, chaveiros, adesivos, bottons e papelaria."
   >
 
   <title>Universo Pixelado | Catálogo</title>
@@ -54,25 +54,28 @@
     }
 
     /* ====================================
-       CABEÇALHO COM IMAGEM DE FUNDO
+       CABEÇALHO
+
+       A imagem deve estar em:
+       imagens/cabeçalho.png
        ==================================== */
 
     header {
-      padding: 56px 20px;
+      padding: 36px 20px;
       text-align: center;
       background-color: #e5d4ff;
 
       /*
-        A camada clara ajuda na leitura dos textos.
+        Camada clara leve.
 
-        Para mostrar mais a imagem, diminua os dois
-        valores 0.78, por exemplo, para 0.35.
+        Para tirar completamente a camada,
+        troque os dois valores 0.12 por 0.
       */
 
       background-image:
         linear-gradient(
-          rgba(250, 247, 255, 0.78),
-          rgba(250, 247, 255, 0.78)
+          rgba(250, 247, 255, 0.12),
+          rgba(250, 247, 255, 0.12)
         ),
         url("imagens/cabeçalho.png");
 
@@ -87,45 +90,56 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 26px;
+      gap: 28px;
+
+      max-width: 1000px;
+      margin: auto;
     }
 
+    /* Logo maior, sem caixa ou fundo. */
     .logo {
-      width: 160px;
-      height: 160px;
+      width: 240px;
       flex-shrink: 0;
-
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-
-      background: white;
-      border: 3px solid var(--roxo);
-      border-radius: 26px;
-      box-shadow: 5px 5px 0 #7544c630;
     }
 
     .logo img {
       display: block;
       width: 100%;
-      height: 100%;
-      object-fit: contain;
+      height: auto;
+    }
+
+    .marca-textos {
+      min-width: 0;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(28px, 5vw, 44px);
+      font-size: clamp(30px, 5vw, 48px);
       letter-spacing: -1px;
+
+      text-shadow:
+        0 1px 3px white,
+        0 0 14px rgba(255, 255, 255, 0.9);
     }
 
     .subtitulo {
-      margin: 6px 0 0;
-      color: #614a7b;
+      margin: 8px 0 0;
+      color: var(--texto);
+      font-size: 18px;
+
+      text-shadow:
+        0 1px 3px white,
+        0 0 10px white;
     }
 
     .apresentacao {
       max-width: 550px;
-      margin: 24px auto 0;
+      margin: 20px auto 0;
+      font-weight: 500;
+
+      text-shadow:
+        0 1px 3px white,
+        0 0 10px white;
     }
 
     /* ====================================
@@ -175,7 +189,7 @@
     }
 
     /* ====================================
-       SUBCATEGORIAS DOS CHAVEIROS
+       SUBCATEGORIAS
        ==================================== */
 
     .subcategorias {
@@ -188,7 +202,7 @@
     }
 
     .subcategorias button {
-      padding: 9px 14px;
+      padding: 10px 15px;
 
       background: white;
       color: var(--roxo);
@@ -316,8 +330,8 @@
     }
 
     .carrossel-controles button {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       flex-shrink: 0;
 
       background: white;
@@ -389,9 +403,8 @@
       color: var(--suave);
       font-size: 14px;
 
-      /* Mantém as quebras de linha da descrição. */
+      /* Preserva as quebras de linha. */
       white-space: pre-line;
-
       overflow-wrap: anywhere;
     }
 
@@ -426,7 +439,6 @@
       width: min(1000px, calc(100vw - 24px));
       max-width: none;
 
-      /* Primeiro valor como alternativa ao dvh. */
       max-height: calc(100vh - 24px);
       max-height: calc(100dvh - 24px);
 
@@ -498,7 +510,7 @@
     }
 
     /* ====================================
-       RODAPÉ E AJUSTES PARA CELULAR
+       RODAPÉ
        ==================================== */
 
     footer {
@@ -515,19 +527,22 @@
       margin: 4px 0;
     }
 
-    @media (max-width: 480px) {
+    /* ====================================
+       AJUSTES PARA CELULAR
+       ==================================== */
+
+    @media (max-width: 600px) {
       header {
-        padding: 32px 16px;
+        padding: 28px 16px;
       }
 
       .marca {
         flex-direction: column;
-        gap: 18px;
+        gap: 14px;
       }
 
       .logo {
-        width: 130px;
-        height: 130px;
+        width: 190px;
       }
 
       main {
@@ -540,7 +555,7 @@
       }
 
       .subcategorias button {
-        padding: 8px 12px;
+        padding: 9px 12px;
         font-size: 13px;
       }
 
@@ -580,7 +595,7 @@
         >
       </div>
 
-      <div>
+      <div class="marca-textos">
         <h1>Universo Pixelado</h1>
 
         <p class="subtitulo">
@@ -649,7 +664,7 @@
       </button>
     </nav>
 
-    <!-- SUBCATEGORIAS DOS CHAVEIROS -->
+    <!-- SUBCATEGORIAS -->
 
     <nav
       id="subcategorias"
@@ -678,7 +693,7 @@
 
   <footer>
     <p>✦ Universo Pixelado ✦</p>
-    <p>✦ Catálogo de produtos — sem compras pelo site. ✦</p>
+    <p>✦ Catálogo de produtos — Aceitamos PIX e Dinheiro. ✦</p>
   </footer>
 
   <!-- ====================================
@@ -711,32 +726,40 @@
 
   <script>
     /* ==========================================
-       SUBCATEGORIAS DE CHAVEIROS
+       CONFIGURAÇÃO DAS SUBCATEGORIAS
 
-       Para adicionar outra subcategoria:
-       1. Acrescente o nome nesta lista.
-       2. Use o mesmo nome no produto.
+       A chave abaixo deve ser igual ao nome
+       da categoria no botão e nos produtos.
+
+       Para adicionar outra subcategoria,
+       acrescente o nome à lista.
        ========================================== */
 
-    const subcategoriasChaveiros = [
-      "Time de Futebol",
-      "Pokémon",
-      "Capa de Disco de Vinil",
-      "Fita Super Nintendo",
-      "Marca de Automóveis"
-    ];
+    const subcategoriasPorCategoria = {
+      "Chaveiros de Acrílico": [
+        "Time de Futebol",
+        "Pokémon",
+        "Capa de Disco de Vinil",
+        "Fita Super Nintendo",
+        "Marca de Automóveis"
+      ]
+    };
 
     /* ==========================================
        CADASTRO DOS PRODUTOS
 
-       categoria:
-         "Chaveiros", "Adesivos" ou "Outros".
+       Categorias disponíveis:
+         "Chaveiros de Acrílico"
+         "Adesivos"
+         "Bottons"
+         "Papelaria"
 
        subcategoria:
-         Para chaveiros, use um nome da lista acima.
+         Use um dos nomes da lista acima
+         nos chaveiros de acrílico.
 
        descricao:
-         Use crases para escrever em várias linhas.
+         Escreva entre crases para pular linhas.
 
        preco:
          Use ponto nos centavos: 15.00
@@ -747,20 +770,29 @@
 
        midias:
          Lista de fotos e vídeos.
-         Use [] quando não tiver arquivos.
+         Use [] se ainda não tiver arquivos.
 
        tipo:
          "imagem" ou "video".
 
        arquivo:
-         Caminho exato da imagem ou do vídeo.
-
-       descricao da mídia:
-         Texto opcional identificando a foto
-         ou o vídeo.
+         Caminho exato da foto ou do vídeo.
        ========================================== */
 
     const produtos = [
+    {
+      nome: "Cópia - Preto e Branco",
+        categoria: "Papelaria",
+
+        descricao: `📄 MATERIAL: Sulfite 75g/m²
+📏 TAMANHO: A4
+🔎 QUANTIDADE: 1`,
+
+        preco: 0.50,
+        estoque: 1000,
+        emoji: "📄",
+      },
+      
       {
         nome: "Manchester City",
         categoria: "Chaveiros de Acrílico",
@@ -832,64 +864,6 @@
           }
         ]
       },
-
-      {
-        nome: "Chaveiro Capa de Disco",
-        categoria: "Chaveiros",
-        subcategoria: "Capa de Disco de Vinil",
-
-        descricao: `🎵 Chaveiro inspirado em capa de disco de vinil
-
-📦 QUANTIDADE: 1 chaveiro
-
-✨ Adicione aqui o nome do álbum e os detalhes do produto.`,
-
-        preco: 20.00,
-        estoque: 4,
-        emoji: "🎵",
-
-        midias: []
-      },
-
-      {
-        nome: "Adesivo Planeta",
-        categoria: "Adesivos",
-
-        descricao: `🪐 Um toque de universo para seu caderno!
-
-📦 QUANTIDADE: 1 adesivo
-
-✨ Personalize seus objetos com um detalhe especial.`,
-
-        preco: 5.00,
-        estoque: 20,
-        emoji: "🪐",
-
-        midias: [
-          {
-            tipo: "imagem",
-            arquivo: "imagens/adesivo-planeta.jpg",
-            descricao: "Adesivo ilustrado de um planeta"
-          }
-        ]
-      },
-
-      {
-        nome: "Marcador de Página",
-        categoria: "Outros",
-
-        descricao: `📚 Para acompanhar suas aventuras literárias!
-
-📦 QUANTIDADE: 1 marcador de página
-
-✨ Fotos em breve.`,
-
-        preco: 8.00,
-        estoque: 0,
-        emoji: "📚",
-
-        midias: []
-      }
     ];
 
     /* ==========================================
@@ -979,7 +953,7 @@
     }
 
     /* ==========================================
-       ABRIR E FECHAR A GALERIA AMPLIADA
+       ABRIR E FECHAR A GALERIA
        ========================================== */
 
     function abrirGaleria(
@@ -991,7 +965,6 @@
         return;
       }
 
-      // Pausa vídeos que estejam tocando nos cards.
       catalogo.querySelectorAll("video").forEach(video => {
         video.pause();
       });
@@ -1021,7 +994,7 @@
       fecharGaleria
     );
 
-    // Fecha ao clicar fora dos limites da janela.
+    // Fecha quando a pessoa clica fora da janela.
     modalGaleria.addEventListener("click", evento => {
       if (evento.target !== modalGaleria) {
         return;
@@ -1040,7 +1013,7 @@
       }
     });
 
-    // Também executado quando a janela fecha com Escape.
+    // Também executado ao fechar com a tecla Escape.
     modalGaleria.addEventListener("close", () => {
       modalConteudo.querySelectorAll("video").forEach(video => {
         video.pause();
@@ -1134,6 +1107,7 @@
           elemento = criarElemento("video");
 
           elemento.controls = true;
+
           elemento.preload = permitirAmpliacao
             ? "none"
             : "metadata";
@@ -1162,7 +1136,6 @@
 
           if (permitirAmpliacao) {
             elemento.classList.add("foto-ampliavel");
-
             elemento.title = "Clique para ampliar";
 
             elemento.addEventListener("click", () => {
@@ -1259,7 +1232,6 @@
         carrossel.append(controles);
       }
 
-      // Só mostra o botão de ampliação nos cards.
       if (permitirAmpliacao && midias.length > 0) {
         botaoAmpliar = criarElemento(
           "button",
@@ -1301,7 +1273,7 @@
     }
 
     /* ==========================================
-       ATUALIZA OS FILTROS
+       ATUALIZA O ESTADO DOS BOTÕES
        ========================================== */
 
     function atualizarFiltros() {
@@ -1313,9 +1285,6 @@
           )
         );
       });
-
-      areaSubcategorias.hidden =
-        categoriaAtual !== "Chaveiros";
 
       areaSubcategorias
         .querySelectorAll("button")
@@ -1330,11 +1299,25 @@
     }
 
     /* ==========================================
-       CRIA OS BOTÕES DAS SUBCATEGORIAS
+       CRIA AS SUBCATEGORIAS DA CATEGORIA ATUAL
        ========================================== */
 
     function criarBotoesSubcategorias() {
       areaSubcategorias.replaceChildren();
+
+      const lista =
+        subcategoriasPorCategoria[categoriaAtual] || [];
+
+      areaSubcategorias.hidden = lista.length === 0;
+
+      if (lista.length === 0) {
+        return;
+      }
+
+      areaSubcategorias.setAttribute(
+        "aria-label",
+        `Subcategorias de ${categoriaAtual}`
+      );
 
       const opcoes = [
         {
@@ -1342,7 +1325,7 @@
           texto: "Todos os chaveiros"
         },
 
-        ...subcategoriasChaveiros.map(nome => ({
+        ...lista.map(nome => ({
           valor: nome,
           texto: nome
         }))
@@ -1396,7 +1379,6 @@
           produto.categoria === categoriaAtual;
 
         const correspondeSubcategoria =
-          categoriaAtual !== "Chaveiros" ||
           subcategoriaAtual === "todos" ||
           produto.subcategoria === subcategoriaAtual;
 
@@ -1411,10 +1393,7 @@
           ? "Todas as categorias"
           : categoriaAtual;
 
-      if (
-        categoriaAtual === "Chaveiros" &&
-        subcategoriaAtual !== "todos"
-      ) {
+      if (subcategoriaAtual !== "todos") {
         nomeFiltro += ` / ${subcategoriaAtual}`;
       }
 
@@ -1507,9 +1486,10 @@
       botao.addEventListener("click", () => {
         categoriaAtual = botao.dataset.categoria;
 
-        // Limpa o subfiltro ao mudar de categoria.
+        // Limpa a subcategoria ao trocar de categoria.
         subcategoriaAtual = "todos";
 
+        criarBotoesSubcategorias();
         atualizarFiltros();
         mostrarProdutos();
       });
