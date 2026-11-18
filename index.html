@@ -693,7 +693,8 @@
 
   <footer>
     <p>✦ Universo Pixelado ✦</p>
-    <p>✦ Catálogo de produtos — Aceitamos PIX e Dinheiro. ✦</p>
+    <p>✦ Aceitamos PIX, Dinheiro, Cartão (apenas aproximação) e Link de Pagamento (débito e crédito). ✦</p>
+    <p>✦ Para pagamentos com cartão/link de pagamento, será acrescida a taxa do cartão. ✦</p>
   </footer>
 
   <!-- ====================================
@@ -780,13 +781,63 @@
        ========================================== */
 
     const produtos = [
-    {
-      nome: "Cópia - Preto e Branco",
+      {
+        nome: "Cópia Frente - Preto e Branco",
         categoria: "Papelaria",
 
         descricao: `📄 MATERIAL: Sulfite 75g/m²
 📏 TAMANHO: A4
 🔎 QUANTIDADE: 1`,
+
+        preco: 0.50,
+        estoque: 1000,
+        emoji: "📄",
+      },
+      
+      {
+        nome: "Cópia Frente e Verso - Preto e Branco",
+        categoria: "Papelaria",
+
+        descricao: `📄 MATERIAL: Sulfite 75g/m²
+📏 TAMANHO: A4
+🔎 QUANTIDADE: 1`,
+
+        preco: 1.00,
+        estoque: 1000,
+        emoji: "📄",
+      },
+
+      {
+        nome: "Cópia Frente - Colorida",
+        categoria: "Papelaria",
+
+        descricao: `📄 MATERIAL: Sulfite 75g/m²
+📏 TAMANHO: A4
+🔎 QUANTIDADE: 1`,
+
+        preco: 1.00,
+        estoque: 1000,
+        emoji: "📄",
+      },
+      
+      {
+        nome: "Cópia Frente e Verso - Colorida",
+        categoria: "Papelaria",
+
+        descricao: `📄 MATERIAL: Sulfite 75g/m²
+📏 TAMANHO: A4
+🔎 QUANTIDADE: 1`,
+
+        preco: 2.00,
+        estoque: 1000,
+        emoji: "📄",
+      },
+      
+      {
+      nome: "Digitalização",
+        categoria: "Papelaria",
+
+        descricao: `🔎 QUANTIDADE: 1`,
 
         preco: 0.50,
         estoque: 1000,
@@ -861,6 +912,42 @@
           {
             tipo: "video",
             arquivo: "videos/palmeiras.mp4"
+          }
+        ]
+      },
+      
+      {
+        nome: "Volkswagen",
+        categoria: "Chaveiros de Acrílico",
+        subcategoria: "Marca de Automóveis",
+
+        descricao: `🧵 MATERIAL: Acrílico transparente
+📏 TAMANHO: 3,4cm de comprimento x 4cm de altura
+🔎 ESPESSURA DO ACRÍLICO: 4mm
+📦 QUANTIDADE: 1 chaveiro
+
+📣 AVISO: Cada chaveiro pode apresentar leves alterações nos tons das cores, por se tratar de uma fabricação artesanal. ✨`,
+
+        preco: 15.00,
+        estoque: 1,
+        emoji: "🚗",
+
+        midias: [
+          {
+            tipo: "imagem",
+            arquivo: "imagens/volkswagen1.jpeg"
+          },
+          {
+            tipo: "imagem",
+            arquivo: "imagens/volkswagen2.jpeg"
+          },
+          {
+            tipo: "imagem",
+            arquivo: "imagens/volkswagen3.jpeg"
+          },
+          {
+            tipo: "video",
+            arquivo: "videos/volkswagen.mp4"
           }
         ]
       },
