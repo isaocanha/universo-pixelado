@@ -397,6 +397,32 @@
       color: #805b12;
     }
 
+     /* SELETOR DE VARIAÇÕES DO PRODUTO */
+    
+    .variacao-produto {
+      margin-top: 18px;
+    }
+    
+    .variacao-produto label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--roxo);
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
+    .variacao-produto select {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      padding: 12px;
+      background: var(--fundo);
+      color: var(--texto);
+      border: 2px solid var(--borda);
+      border-radius: 10px;
+      font-size: 16px;
+    }   
+
     /* GALERIA AMPLIADA */
 
     .modal-galeria {
@@ -944,6 +970,86 @@
             arquivo: "videos/mitsubishi.mp4"
           }
         ]
+      },
+      
+      {
+        nome: "Super Mario Kart",
+        categoria: "Chaveiros de Acrílico",
+        subcategoria: "Fita Super Nintendo",
+
+        descricao: `🧵 MATERIAL: Acrílico transparente
+🔎 ESPESSURA DO ACRÍLICO: 4mm
+📦 QUANTIDADE: 1 chaveiro
+
+📣 AVISO: Cada chaveiro pode apresentar leves alterações nos tons das cores, por se tratar de uma fabricação artesanal. ✨`,
+
+        disponibilidade: "Disponível",
+        emoji: "🕹️",
+        variacoes: [
+          {
+            nome: "5cm × 3,1cm",
+            preco: 15.00
+          },
+          {
+            nome: "6cm × 3,8cm",
+            preco: 20.00
+          }
+        ],
+
+        midias: [
+          {
+            tipo: "imagem",
+            arquivo: "imagens/mariokart1.jpeg"
+          },
+          {
+            tipo: "imagem",
+            arquivo: "imagens/mariokart2.jpeg"
+          },
+          {
+            tipo: "imagem",
+            arquivo: "imagens/mariokart3.jpeg"
+          },
+          {
+            tipo: "video",
+            arquivo: "videos/mariokart.mp4"
+          }
+        ]
+      },
+      
+      {
+        nome: "Volkswagen",
+        categoria: "Chaveiros de Acrílico",
+        subcategoria: "Marca de Automóveis",
+
+        descricao: `🧵 MATERIAL: Acrílico transparente
+📏 TAMANHO: 3,4cm de comprimento x 4cm de altura
+🔎 ESPESSURA DO ACRÍLICO: 4mm
+📦 QUANTIDADE: 1 chaveiro
+
+📣 AVISO: Cada chaveiro pode apresentar leves alterações nos tons das cores, por se tratar de uma fabricação artesanal. ✨`,
+
+        preco: 15.00,
+        disponibilidade: "Disponível",
+        emoji: "🚗",
+
+        midias: [
+          {
+            tipo: "imagem",
+            arquivo: "imagens/volkswagen1.jpeg"
+          },
+          {
+            tipo: "imagem",
+            arquivo: "imagens/volkswagen2.jpeg"
+          },
+          {
+            tipo: "imagem",
+            arquivo: "imagens/volkswagen3.jpeg"
+          },
+          {
+            tipo: "video",
+            arquivo: "videos/volkswagen.mp4"
+          }
+        ]
       }
     ];
 
@@ -1067,23 +1173,28 @@
     function atualizarPrecos() {
       const pagamento = obterPagamentoAtual();
       const forma = formasPagamento[pagamento];
-
+    
       precosVisiveis.forEach(item => {
-        // Sempre calcula a partir do preço original.
+        // Usa o preço original da variação selecionada
+        // ou o preço original do produto sem variações.
         const precoFinal = calcularPrecoFinal(
-          item.produto.preco,
+          item.precoOriginal,
           pagamento
         );
-
+    
         item.preco.textContent = moeda.format(precoFinal);
-
+    
+        const textoVariacao = item.variacaoSelecionada
+          ? ` • ${item.variacaoSelecionada}`
+          : "";
+    
         item.forma.textContent =
-          `Por unidade • ${forma.nome}`;
-
+          `Por unidade${textoVariacao} • ${forma.nome}`;
+    
         item.desconto.hidden = pagamento !== "pix";
       });
     }
-
+      
     seletorPagamento.addEventListener(
       "change",
       atualizarPrecos
@@ -1487,86 +1598,161 @@
       catalogo.querySelectorAll("video").forEach(video => {
         video.pause();
       });
-
+    
       catalogo.replaceChildren();
       precosVisiveis = [];
-
+    
       const lista = produtos.filter(produto => {
         const correspondeCategoria =
           categoriaAtual === "todos" ||
           produto.categoria === categoriaAtual;
-
+    
         const correspondeSubcategoria =
           subcategoriaAtual === "todos" ||
           produto.subcategoria === subcategoriaAtual;
-
+    
         return correspondeCategoria && correspondeSubcategoria;
       });
-
+    
       let nomeFiltro =
         categoriaAtual === "todos"
           ? "Todas as categorias"
           : categoriaAtual;
-
+    
       if (subcategoriaAtual !== "todos") {
         nomeFiltro += ` / ${subcategoriaAtual}`;
       }
-
+    
       if (lista.length === 0) {
         resumo.textContent =
           `Nenhum item cadastrado neste filtro: ${nomeFiltro}.`;
-
+    
         return;
       }
-
+    
       resumo.textContent =
         `${lista.length} ${
           lista.length === 1 ? "item" : "itens"
         } · ${nomeFiltro}`;
-
-      lista.forEach(produto => {
+    
+      lista.forEach((produto, indiceProduto) => {
         const card = criarElemento("article", "produto");
-
+    
         card.append(criarCarrossel(produto));
-
+    
         const info = criarElemento("div", "informacoes");
-
+    
         const categoriaExibida = produto.subcategoria
           ? `${produto.categoria} · ${produto.subcategoria}`
           : produto.categoria;
-
+    
+        info.append(
+          criarElemento("span", "categoria", categoriaExibida),
+          criarElemento("h2", "", produto.nome),
+          criarElemento("p", "descricao", produto.descricao)
+        );
+    
+        const variacoes = Array.isArray(produto.variacoes)
+          ? produto.variacoes
+          : [];
+    
+        const temVariacoes = variacoes.length > 0;
+    
         const preco = criarElemento("p", "preco");
         const forma = criarElemento("p", "preco-forma");
-
+    
+        // Anuncia o novo preço ao alterar a variação.
+        preco.setAttribute("aria-live", "polite");
+        preco.setAttribute("aria-atomic", "true");
+    
         const desconto = criarElemento(
           "span",
           "preco-detalhe desconto",
           "(5% de desconto)"
         );
-
+    
         desconto.hidden = obterPagamentoAtual() !== "pix";
-
-        info.append(
-          criarElemento("span", "categoria", categoriaExibida),
-          criarElemento("h2", "", produto.nome),
-          criarElemento("p", "descricao", produto.descricao),
-          preco,
-          forma,
-          desconto
-        );
-
-        precosVisiveis.push({
+    
+        // A primeira variação fica selecionada inicialmente.
+        const referenciaPreco = {
           produto,
           preco,
           forma,
-          desconto
-        });
-
-        // Mostra somente o status, sem quantidade de estoque.
+          desconto,
+    
+          precoOriginal: temVariacoes
+            ? variacoes[0].preco
+            : produto.preco,
+    
+          variacaoSelecionada: temVariacoes
+            ? variacoes[0].nome
+            : ""
+        };
+    
+        precosVisiveis.push(referenciaPreco);
+    
+        if (temVariacoes) {
+          const areaVariacao = criarElemento(
+            "div",
+            "variacao-produto"
+          );
+    
+          const idSeletor = `variacao-produto-${indiceProduto}`;
+    
+          const label = criarElemento(
+            "label",
+            "",
+            "📏 Escolha a variação"
+          );
+    
+          label.htmlFor = idSeletor;
+    
+          const seletorVariacao = criarElemento("select");
+    
+          seletorVariacao.id = idSeletor;
+    
+          variacoes.forEach((variacao, indiceVariacao) => {
+            const opcao = criarElemento(
+              "option",
+              "",
+              variacao.nome
+            );
+    
+            opcao.value = String(indiceVariacao);
+    
+            seletorVariacao.append(opcao);
+          });
+    
+          seletorVariacao.addEventListener("change", () => {
+            const indiceSelecionado = Number(
+              seletorVariacao.value
+            );
+    
+            const variacao = variacoes[indiceSelecionado];
+    
+            if (!variacao) {
+              return;
+            }
+    
+            // Atualiza o preço-base, sem acumular acréscimos.
+            referenciaPreco.precoOriginal = variacao.preco;
+            referenciaPreco.variacaoSelecionada = variacao.nome;
+    
+            // Recalcula com a forma de pagamento atual.
+            atualizarPrecos();
+          });
+    
+          areaVariacao.append(label, seletorVariacao);
+          info.append(areaVariacao);
+        }
+    
+        info.append(preco, forma, desconto);
+    
+        // Mantém a disponibilidade do produto.
         const status = obterDisponibilidade(produto);
-
+    
         const areaDisponibilidade = criarElemento("div");
-
+    
         areaDisponibilidade.append(
           criarElemento(
             "span",
@@ -1574,12 +1760,12 @@
             status.texto
           )
         );
-
+    
         info.append(areaDisponibilidade);
         card.append(info);
         catalogo.append(card);
       });
-
+    
       atualizarPrecos();
     }
 
