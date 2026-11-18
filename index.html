@@ -10,7 +10,7 @@
 
   <meta
     name="description"
-    content="Conheça o catálogo da Universo Pixelado: cópia, digitalização, chaveiros, adesivos, bottons e papelaria."
+    content="Conheça o catálogo da Universo Pixelado: cópia, digitalização, chaveiros, cards personalizados, adesivos, bottons e papelaria."
   >
 
   <title>Universo Pixelado | Catálogo</title>
@@ -46,7 +46,8 @@
     }
 
     button:focus-visible,
-    select:focus-visible {
+    select:focus-visible,
+    summary:focus-visible {
       outline: 3px solid #c62e7a;
       outline-offset: 4px;
     }
@@ -182,8 +183,6 @@
       border-radius: 10px;
     }
 
-    /* MENSAGEM ABAIXO DA SELEÇÃO DE PAGAMENTO */
-
     .pagamento-aviso {
       margin: 14px 0 0;
       color: var(--suave);
@@ -205,10 +204,14 @@
       grid-template-columns:
         repeat(auto-fill, minmax(min(100%, 280px), 1fr));
       gap: 24px;
-      align-items: start;
+
+      /* Alinha a altura dos cards na mesma linha. */
+      align-items: stretch;
     }
 
     .produto {
+      display: flex;
+      flex-direction: column;
       min-width: 0;
       overflow: hidden;
       background: white;
@@ -217,9 +220,17 @@
       box-shadow: 0 6px 20px #30244808;
     }
 
+    .produto > .informacoes {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      flex: 1;
+    }
+
     /* CARROSSEL */
 
     .carrossel {
+      min-width: 0;
       background: #f4edff;
     }
 
@@ -318,9 +329,10 @@
       background: #e5d4ff;
     }
 
-    /* INFORMAÇÕES E PREÇOS */
+    /* INFORMAÇÕES */
 
     .informacoes {
+      min-width: 0;
       padding: 20px;
     }
 
@@ -347,6 +359,44 @@
       overflow-wrap: anywhere;
     }
 
+    /* LER MAIS / LER MENOS */
+
+    .descricao-recolhida {
+      margin-top: 4px;
+    }
+
+    .descricao-recolhida summary {
+      width: fit-content;
+      padding: 8px 0;
+      color: var(--roxo);
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .descricao-recolhida summary:hover {
+      color: var(--texto);
+    }
+
+    .descricao-recolhida .descricao {
+      margin-top: 8px;
+    }
+
+    .descricao-recolhida .texto-ler-menos {
+      display: none;
+    }
+
+    .descricao-recolhida[open] .texto-ler-mais {
+      display: none;
+    }
+
+    .descricao-recolhida[open] .texto-ler-menos {
+      display: inline;
+    }
+
+    /* PREÇOS */
+
     .preco {
       margin: 20px 0 4px;
       color: var(--roxo);
@@ -363,6 +413,7 @@
 
     .preco-detalhe.desconto {
       display: inline-block;
+      align-self: flex-start;
       margin: 0 0 14px;
       padding: 5px 9px;
       background: #000000;
@@ -372,7 +423,12 @@
       font-weight: bold;
     }
 
-    /* DISPONIBILIDADE: SEM QUANTIDADE DE ESTOQUE */
+    /* DISPONIBILIDADE */
+
+    .area-disponibilidade {
+      margin-top: auto;
+      padding-top: 14px;
+    }
 
     .disponibilidade {
       display: inline-block;
@@ -397,12 +453,12 @@
       color: #805b12;
     }
 
-     /* SELETOR DE VARIAÇÕES DO PRODUTO */
-    
+    /* VARIAÇÕES */
+
     .variacao-produto {
       margin-top: 18px;
     }
-    
+
     .variacao-produto label {
       display: block;
       margin-bottom: 8px;
@@ -410,7 +466,7 @@
       font-size: 14px;
       font-weight: bold;
     }
-    
+
     .variacao-produto select {
       display: block;
       width: 100%;
@@ -421,7 +477,7 @@
       border: 2px solid var(--borda);
       border-radius: 10px;
       font-size: 16px;
-    }   
+    }
 
     /* GALERIA AMPLIADA */
 
@@ -444,11 +500,15 @@
     }
 
     .modal-cabecalho {
+      position: sticky;
+      top: 0;
+      z-index: 2;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
       padding: 16px 20px;
+      background: white;
       border-bottom: 1px solid var(--borda);
     }
 
@@ -470,6 +530,25 @@
 
     .modal-fechar:hover {
       background: #e5d4ff;
+    }
+
+    #modal-conteudo {
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1.2fr) minmax(0, 1fr);
+      align-items: start;
+    }
+
+    #modal-conteudo > .informacoes {
+      padding: 24px;
+    }
+
+    #modal-conteudo .descricao {
+      margin-top: 12px;
+    }
+
+    #modal-conteudo .area-disponibilidade {
+      margin-top: 0;
     }
 
     .modal-galeria .carrossel-tela {
@@ -499,6 +578,23 @@
 
     footer p {
       margin: 6px 0;
+    }
+
+    /* GALERIA EM TELAS MENORES */
+
+    @media (max-width: 750px) {
+      #modal-conteudo {
+        grid-template-columns: 1fr;
+      }
+
+      #modal-conteudo > .informacoes {
+        padding: 20px;
+      }
+
+      .modal-galeria .carrossel-tela {
+        height: 48vh;
+        height: 48dvh;
+      }
     }
 
     /* CELULAR */
@@ -544,11 +640,6 @@
 
       .modal-cabecalho h2 {
         font-size: 17px;
-      }
-
-      .modal-galeria .carrossel-tela {
-        height: 60vh;
-        height: 60dvh;
       }
     }
 
@@ -604,7 +695,7 @@
       >
         🖌️ Card Personalizado
       </button>
-      
+
       <button
         type="button"
         data-categoria="Adesivos"
@@ -640,7 +731,7 @@
       hidden
     ></nav>
 
-    <!-- FORMA DE PAGAMENTO E AVISO -->
+    <!-- PAGAMENTO -->
 
     <div class="pagamento">
       <label for="forma-pagamento">
@@ -697,7 +788,7 @@
     </p>
   </footer>
 
-  <!-- GALERIA AMPLIADA -->
+  <!-- GALERIA COM INFORMAÇÕES COMPLETAS -->
 
   <dialog
     id="modal-galeria"
@@ -706,7 +797,7 @@
   >
     <div class="modal-cabecalho">
       <h2 id="modal-titulo">
-        Fotos e vídeos do produto
+        Detalhes do produto
       </h2>
 
       <button
@@ -741,25 +832,26 @@
     /* ==========================================
        PRODUTOS E SERVIÇOS
 
-       PREÇO:
-       Coloque o preço original no campo "preco".
+       PREÇOS:
+       - PIX / Dinheiro: preço cadastrado.
+       - Cartão / Link: preço cadastrado + 5%.
 
-       Mantido o cálculo do código anterior:
-       - PIX / Dinheiro: preço original.
-       - Cartão / Link: preço original + 5%.
+       Esta é a regra mantida do código anterior.
+       Um acréscimo de 5% no cartão não equivale
+       exatamente a 5% de desconto sobre o cartão.
 
-       Exemplo:
+       PRODUTO SEM VARIAÇÕES:
        preco: 15.00
 
-       PIX / Dinheiro: R$ 15,00
-       Cartão / Link: R$ 15,75
+       PRODUTO COM VARIAÇÕES:
+       variacoes: [
+         { nome: "Opção 1", preco: 15.00 },
+         { nome: "Opção 2", preco: 20.00 }
+       ]
 
        Use ponto nos centavos, não vírgula.
 
        DISPONIBILIDADE:
-       Não é necessário cadastrar estoque.
-
-       Use uma destas opções:
        disponibilidade: "Disponível"
        disponibilidade: "Esgotado"
        disponibilidade: "Encomenda"
@@ -836,28 +928,29 @@
         emoji: "📄",
         midias: []
       },
-      
+
       {
         nome: "Pokémon",
         categoria: "Card Personalizado",
 
         descricao: `🎴 Carta Altamente Personalizada, você decide:
-     	- Tipo (Fogo 🔥, Planta 🌳, Água 💧, Elétrico ⚡, Psíquico 🔮, Lutador 🥊, Normal ⭐, Escuridão 🕸️, Dragão 🐉, Metal 🛡️ e Fada 🧚‍♀️);
-     	- 🖼️ Moldura;
-     	- 📝 Textos;
-     	- 💫 Efeitos Visuais;
-     	- 💬 E muito mais.
+- Tipo (Fogo 🔥, Planta 🌳, Água 💧, Elétrico ⚡, Psíquico 🔮, Lutador 🥊, Normal ⭐, Escuridão 🕸️, Dragão 🐉, Metal 🛡️ e Fada 🧚‍♀️);
+- 🖼️ Moldura;
+- 📝 Textos;
+- 💫 Efeitos Visuais;
+- 💬 E muito mais.
 
 📏 TAMANHO: A carta tem aproximadamente 6,3cm de comprimento e 8,8cm de altura.
 📢 ORIENTAÇÕES: Após a compra você receberá as instruções e o link do Formulário via QR Code para você preencher como quer a sua Carta Personalizada. Qualquer dúvida ao preencher o Formulário é só nos chamar!
 🗓️ PRAZO: Após a aprovação da arte pelo comprador, trabalhamos com um prazo de confecção de 4 dias úteis. Sempre que possível, a finalização pode ocorrer antes, conforme a demanda.
-‼️​​O VERSO é laminação básica para qualquer variação.
+‼️ O VERSO é laminação básica para qualquer variação.
 
 📣 AVISO 1: As cores na tela do celular/computador 📱 sempre vão ser mais coloridas e brilhantes. 🌈 Na impressão física é normal as cores ficarem mais suaves. Logo, as cores do produto final serão semelhantes, mas não idênticas. 🙏 De qualquer forma a cartinha ficará linda! ✨
 ⚠️ AVISO 2: A espessura da Carta Personalizada pela Universo Pixelado é consideravelmente mais grossa do que uma Carta Original.`,
 
         disponibilidade: "Encomenda",
         emoji: "🐉",
+
         variacoes: [
           {
             nome: "1un - Básica",
@@ -894,7 +987,7 @@
           {
             nome: "1un - Foil + Toploader",
             preco: 51.99
-          }    
+          }
         ],
 
         midias: [
@@ -913,7 +1006,8 @@
           {
             tipo: "imagem",
             arquivo: "imagens/cardpoke4.jpg"
-          },          {
+          },
+          {
             tipo: "imagem",
             arquivo: "imagens/cardpoke5.jpg"
           },
@@ -929,20 +1023,21 @@
         categoria: "Card Personalizado",
 
         descricao: `🎴 Carta Altamente Personalizada, você decide:
-     	- 🪧 Tipo;
-     	- 📝 Textos;
-     	- 💬 E muito mais.
+- 🪧 Tipo;
+- 📝 Textos;
+- 💬 E muito mais.
 
 📏 TAMANHO: A carta tem aproximadamente 5,9cm de comprimento e 8,6cm de altura.
 📢 ORIENTAÇÕES: Após a compra você receberá as instruções e o link do Formulário via QR Code para você preencher como quer a sua Carta Personalizada. Qualquer dúvida ao preencher o Formulário é só nos chamar!
 🗓️ PRAZO: Após a aprovação da arte pelo comprador, trabalhamos com um prazo de confecção de 4 dias úteis. Sempre que possível, a finalização pode ocorrer antes, conforme a demanda.
-‼️​​O VERSO é laminação básica para qualquer variação.
+‼️ O VERSO é laminação básica para qualquer variação.
 
 📣 AVISO 1: As cores na tela do celular/computador 📱 sempre vão ser mais coloridas e brilhantes. 🌈 Na impressão física é normal as cores ficarem mais suaves. Logo, as cores do produto final serão semelhantes, mas não idênticas. 🙏 De qualquer forma a cartinha ficará linda! ✨
 ⚠️ AVISO 2: A espessura da Carta Personalizada pela Universo Pixelado é consideravelmente mais grossa do que uma Carta Original.`,
 
         disponibilidade: "Encomenda",
         emoji: "🦐",
+
         variacoes: [
           {
             nome: "1un - Básica",
@@ -979,7 +1074,7 @@
           {
             nome: "1un - Foil + Toploader",
             preco: 51.99
-          }    
+          }
         ],
 
         midias: [
@@ -1001,7 +1096,7 @@
           }
         ]
       },
-      
+
       {
         nome: "Manchester City",
         categoria: "Chaveiros de Acrílico",
@@ -1145,7 +1240,7 @@
           }
         ]
       },
-      
+
       {
         nome: "Super Mario Kart",
         categoria: "Chaveiros de Acrílico",
@@ -1159,6 +1254,7 @@
 
         disponibilidade: "Disponível",
         emoji: "🕹️",
+
         variacoes: [
           {
             nome: "5cm × 3,1cm",
@@ -1189,7 +1285,7 @@
           }
         ]
       },
-      
+
       {
         nome: "Mortal Kombat",
         categoria: "Chaveiros de Acrílico",
@@ -1203,6 +1299,7 @@
 
         disponibilidade: "Disponível",
         emoji: "🕹️",
+
         variacoes: [
           {
             nome: "5cm × 3,1cm",
@@ -1247,6 +1344,7 @@
 
         disponibilidade: "Disponível",
         emoji: "🕹️",
+
         variacoes: [
           {
             nome: "5cm × 3,1cm",
@@ -1277,7 +1375,7 @@
           }
         ]
       },
-      
+
       {
         nome: "Scooby Doo Mystery",
         categoria: "Chaveiros de Acrílico",
@@ -1291,6 +1389,7 @@
 
         disponibilidade: "Disponível",
         emoji: "🕹️",
+
         variacoes: [
           {
             nome: "5cm × 3,1cm",
@@ -1335,6 +1434,7 @@
 
         disponibilidade: "Disponível",
         emoji: "🕹️",
+
         variacoes: [
           {
             nome: "5cm × 3,1cm",
@@ -1379,6 +1479,7 @@
 
         disponibilidade: "Disponível",
         emoji: "🕹️",
+
         variacoes: [
           {
             nome: "5cm × 3,1cm",
@@ -1409,7 +1510,6 @@
           }
         ]
       }
-    
     ];
 
     /* FORMAS DE PAGAMENTO */
@@ -1426,7 +1526,7 @@
       }
     };
 
-    /* STATUS DE DISPONIBILIDADE */
+    /* DISPONIBILIDADE */
 
     const statusDisponibilidade = {
       disponivel: {
@@ -1471,9 +1571,14 @@
     let subcategoriaAtual = "todos";
     let elementoQueAbriuGaleria = null;
 
-    // Guarda referências aos preços dos cards visíveis.
-    // Trocar o pagamento não reinicia os carrosséis.
+    // Referências aos preços dos cards visíveis.
     let precosVisiveis = [];
+
+    // Referência ao preço da janela ampliada.
+    let precoModal = null;
+
+    // Mantém a variação escolhida durante a visita à página.
+    const variacoesSelecionadas = new Map();
 
     const moeda = new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -1496,7 +1601,7 @@
       return elemento;
     }
 
-    /* VALIDA A FORMA DE PAGAMENTO */
+    /* FORMA DE PAGAMENTO ATUAL */
 
     function obterPagamentoAtual() {
       const valor = seletorPagamento.value;
@@ -1514,7 +1619,7 @@
       return "pix";
     }
 
-    /* CÁLCULO DO PREÇO FINAL */
+    /* CÁLCULO DO PREÇO */
 
     function calcularPrecoFinal(precoOriginal, pagamento) {
       const originalCentavos = Math.round(precoOriginal * 100);
@@ -1529,31 +1634,86 @@
       return finalCentavos / 100;
     }
 
+    /* VARIAÇÕES */
+
+    function obterVariacoes(produto) {
+      return Array.isArray(produto.variacoes)
+        ? produto.variacoes
+        : [];
+    }
+
+    function obterIndiceVariacao(produto) {
+      const variacoes = obterVariacoes(produto);
+
+      const indiceSalvo =
+        variacoesSelecionadas.get(produto) ?? 0;
+
+      const indiceValido =
+        Number.isInteger(indiceSalvo) &&
+        indiceSalvo >= 0 &&
+        indiceSalvo < variacoes.length;
+
+      return indiceValido ? indiceSalvo : 0;
+    }
+
+    /* ATUALIZAÇÃO DOS PREÇOS */
+
+    function atualizarPrecoItem(item, pagamento) {
+      const variacoes = obterVariacoes(item.produto);
+
+      let precoOriginal = item.produto.preco;
+      let nomeVariacao = "";
+
+      if (variacoes.length > 0) {
+        const indice = obterIndiceVariacao(item.produto);
+        const variacao = variacoes[indice];
+
+        precoOriginal = variacao.preco;
+        nomeVariacao = variacao.nome;
+
+        // Sincroniza a seleção no card e na janela.
+        if (item.seletorVariacao) {
+          item.seletorVariacao.value = String(indice);
+        }
+      }
+
+      const precoFinal = calcularPrecoFinal(
+        precoOriginal,
+        pagamento
+      );
+
+      const forma = formasPagamento[pagamento];
+
+      item.preco.textContent = moeda.format(precoFinal);
+
+      const textoVariacao = nomeVariacao
+        ? ` • ${nomeVariacao}`
+        : "";
+
+      // Para variações que podem conter kits,
+      // o preço corresponde à opção inteira selecionada.
+      const referenciaValor = variacoes.length > 0
+        ? "Valor da opção"
+        : "Por unidade";
+
+      item.forma.textContent =
+        `${referenciaValor}${textoVariacao} • ${forma.nome}`;
+
+      item.desconto.hidden = pagamento !== "pix";
+    }
+
     function atualizarPrecos() {
       const pagamento = obterPagamentoAtual();
-      const forma = formasPagamento[pagamento];
-    
+
       precosVisiveis.forEach(item => {
-        // Usa o preço original da variação selecionada
-        // ou o preço original do produto sem variações.
-        const precoFinal = calcularPrecoFinal(
-          item.precoOriginal,
-          pagamento
-        );
-    
-        item.preco.textContent = moeda.format(precoFinal);
-    
-        const textoVariacao = item.variacaoSelecionada
-          ? ` • ${item.variacaoSelecionada}`
-          : "";
-    
-        item.forma.textContent =
-          `Por unidade${textoVariacao} • ${forma.nome}`;
-    
-        item.desconto.hidden = pagamento !== "pix";
+        atualizarPrecoItem(item, pagamento);
       });
+
+      if (precoModal) {
+        atualizarPrecoItem(precoModal, pagamento);
+      }
     }
-      
+
     seletorPagamento.addEventListener(
       "change",
       atualizarPrecos
@@ -1562,8 +1722,6 @@
     /* DISPONIBILIDADE DO PRODUTO */
 
     function obterDisponibilidade(produto) {
-      // Aceita "Disponível" e "Disponivel",
-      // além de variações entre maiúsculas e minúsculas.
       const valor = String(produto.disponibilidade || "")
         .trim()
         .toLowerCase()
@@ -1579,8 +1737,6 @@
         return statusDisponibilidade[valor];
       }
 
-      // Um status ausente ou inválido não será
-      // anunciado como disponível por engano.
       console.warn(
         `Disponibilidade inválida para "${produto.nome}". ` +
         'Use "Disponível", "Esgotado" ou "Encomenda".'
@@ -1605,11 +1761,203 @@
 
       if (mensagem) {
         placeholder.append(
-          criarElemento("p", "sem-midia-texto", mensagem)
+          criarElemento(
+            "p",
+            "sem-midia-texto",
+            mensagem
+          )
         );
       }
 
       return placeholder;
+    }
+
+    /* INFORMAÇÕES DO CARD E DA JANELA AMPLIADA */
+
+    function criarInformacoesProduto(
+      produto,
+      descricaoCompleta = false,
+      idPrefixo = "produto"
+    ) {
+      const info = criarElemento("div", "informacoes");
+
+      const categoriaExibida = produto.subcategoria
+        ? `${produto.categoria} · ${produto.subcategoria}`
+        : produto.categoria;
+
+      info.append(
+        criarElemento(
+          "span",
+          "categoria",
+          categoriaExibida
+        )
+      );
+
+      // Na janela, o nome já está no cabeçalho.
+      if (!descricaoCompleta) {
+        info.append(
+          criarElemento("h2", "", produto.nome)
+        );
+      }
+
+      /* DESCRIÇÃO */
+
+      if (produto.descricao) {
+        if (descricaoCompleta) {
+          info.append(
+            criarElemento(
+              "p",
+              "descricao",
+              produto.descricao
+            )
+          );
+        } else {
+          const detalhes = criarElemento(
+            "details",
+            "descricao-recolhida"
+          );
+
+          const resumoDescricao = criarElemento("summary");
+
+          resumoDescricao.append(
+            criarElemento(
+              "span",
+              "texto-ler-mais",
+              "Ler mais"
+            ),
+            criarElemento(
+              "span",
+              "texto-ler-menos",
+              "Ler menos"
+            )
+          );
+
+          detalhes.append(
+            resumoDescricao,
+            criarElemento(
+              "p",
+              "descricao",
+              produto.descricao
+            )
+          );
+
+          info.append(detalhes);
+        }
+      }
+
+      /* PREÇO */
+
+      const preco = criarElemento("p", "preco");
+      const forma = criarElemento("p", "preco-forma");
+
+      preco.setAttribute("aria-live", "polite");
+      preco.setAttribute("aria-atomic", "true");
+
+      const desconto = criarElemento(
+        "span",
+        "preco-detalhe desconto",
+        "(5% de desconto)"
+      );
+
+      desconto.hidden = obterPagamentoAtual() !== "pix";
+
+      const referenciaPreco = {
+        produto,
+        preco,
+        forma,
+        desconto,
+        seletorVariacao: null
+      };
+
+      /* SELETOR DE VARIAÇÕES */
+
+      const variacoes = obterVariacoes(produto);
+
+      if (variacoes.length > 0) {
+        const areaVariacao = criarElemento(
+          "div",
+          "variacao-produto"
+        );
+
+        const idSeletor = `${idPrefixo}-variacao`;
+
+        const label = criarElemento(
+          "label",
+          "",
+          "📏 Escolha a variação"
+        );
+
+        label.htmlFor = idSeletor;
+
+        const seletorVariacao = criarElemento("select");
+
+        seletorVariacao.id = idSeletor;
+
+        variacoes.forEach((variacao, indice) => {
+          const opcao = criarElemento(
+            "option",
+            "",
+            variacao.nome
+          );
+
+          opcao.value = String(indice);
+          seletorVariacao.append(opcao);
+        });
+
+        referenciaPreco.seletorVariacao =
+          seletorVariacao;
+
+        seletorVariacao.addEventListener("change", () => {
+          const indice = Number(seletorVariacao.value);
+
+          if (
+            !Number.isInteger(indice) ||
+            !variacoes[indice]
+          ) {
+            return;
+          }
+
+          variacoesSelecionadas.set(produto, indice);
+
+          // Atualiza o card e a janela ampliada,
+          // sem reiniciar as fotos e os vídeos.
+          atualizarPrecos();
+        });
+
+        areaVariacao.append(label, seletorVariacao);
+        info.append(areaVariacao);
+      }
+
+      info.append(preco, forma, desconto);
+
+      /* DISPONIBILIDADE */
+
+      const status = obterDisponibilidade(produto);
+
+      const areaDisponibilidade = criarElemento(
+        "div",
+        "area-disponibilidade"
+      );
+
+      areaDisponibilidade.append(
+        criarElemento(
+          "span",
+          `disponibilidade ${status.classe}`,
+          status.texto
+        )
+      );
+
+      info.append(areaDisponibilidade);
+
+      atualizarPrecoItem(
+        referenciaPreco,
+        obterPagamentoAtual()
+      );
+
+      return {
+        elemento: info,
+        referenciaPreco
+      };
     }
 
     /* GALERIA AMPLIADA */
@@ -1632,11 +1980,29 @@
 
       modalTitulo.textContent = produto.nome;
 
-      modalConteudo.replaceChildren(
-        criarCarrossel(produto, false, indiceInicial)
+      const carrossel = criarCarrossel(
+        produto,
+        false,
+        indiceInicial
       );
 
+      const informacoes = criarInformacoesProduto(
+        produto,
+        true,
+        "modal-produto"
+      );
+
+      precoModal = informacoes.referenciaPreco;
+
+      modalConteudo.replaceChildren(
+        carrossel,
+        informacoes.elemento
+      );
+
+      atualizarPrecos();
+
       modalGaleria.showModal();
+      modalGaleria.scrollTop = 0;
       document.body.classList.add("galeria-aberta");
     }
 
@@ -1646,8 +2012,12 @@
       }
     }
 
-    modalFechar.addEventListener("click", fecharGaleria);
+    modalFechar.addEventListener(
+      "click",
+      fecharGaleria
+    );
 
+    // Fecha ao clicar fora da janela.
     modalGaleria.addEventListener("click", evento => {
       if (evento.target !== modalGaleria) {
         return;
@@ -1671,6 +2041,8 @@
       modalConteudo.querySelectorAll("video").forEach(video => {
         video.pause();
       });
+
+      precoModal = null;
 
       modalConteudo.replaceChildren();
       document.body.classList.remove("galeria-aberta");
@@ -1704,7 +2076,9 @@
         `Fotos e vídeos de ${produto.nome}`
       );
 
-      const midias = produto.midias || [];
+      const midias = Array.isArray(produto.midias)
+        ? produto.midias
+        : [];
 
       let indice = midias.length
         ? Math.max(0, Math.min(indiceInicial, midias.length - 1))
@@ -1739,10 +2113,13 @@
 
         if (midia.tipo === "video") {
           elemento = criarElemento("video");
+
           elemento.controls = true;
+
           elemento.preload = permitirAmpliacao
             ? "none"
             : "metadata";
+
           elemento.playsInline = true;
 
           elemento.setAttribute(
@@ -1770,7 +2147,11 @@
             elemento.title = "Clique para ampliar";
 
             elemento.addEventListener("click", () => {
-              abrirGaleria(produto, indice, botaoAmpliar);
+              abrirGaleria(
+                produto,
+                indice,
+                botaoAmpliar
+              );
             });
           }
         }
@@ -1809,7 +2190,12 @@
           "carrossel-controles"
         );
 
-        const anterior = criarElemento("button", "", "❮");
+        const anterior = criarElemento(
+          "button",
+          "",
+          "❮"
+        );
+
         anterior.type = "button";
 
         anterior.setAttribute(
@@ -1817,7 +2203,12 @@
           `Mídia anterior de ${produto.nome}`
         );
 
-        const proximo = criarElemento("button", "", "❯");
+        const proximo = criarElemento(
+          "button",
+          "",
+          "❯"
+        );
+
         proximo.type = "button";
 
         proximo.setAttribute(
@@ -1826,7 +2217,9 @@
         );
 
         anterior.addEventListener("click", () => {
-          indice = (indice - 1 + midias.length) % midias.length;
+          indice =
+            (indice - 1 + midias.length) % midias.length;
+
           mostrarMidia();
         });
 
@@ -1850,17 +2243,25 @@
 
         botaoAmpliar.setAttribute(
           "aria-label",
-          `Ampliar fotos e vídeos de ${produto.nome}`
+          `Ampliar fotos, vídeos e informações de ${produto.nome}`
         );
 
-        botaoAmpliar.setAttribute("aria-haspopup", "dialog");
+        botaoAmpliar.setAttribute(
+          "aria-haspopup",
+          "dialog"
+        );
+
         botaoAmpliar.setAttribute(
           "aria-controls",
           "modal-galeria"
         );
 
         botaoAmpliar.addEventListener("click", () => {
-          abrirGaleria(produto, indice, botaoAmpliar);
+          abrirGaleria(
+            produto,
+            indice,
+            botaoAmpliar
+          );
         });
 
         carrossel.append(botaoAmpliar);
@@ -1877,7 +2278,9 @@
       botoesCategorias.forEach(botao => {
         botao.setAttribute(
           "aria-pressed",
-          String(botao.dataset.categoria === categoriaAtual)
+          String(
+            botao.dataset.categoria === categoriaAtual
+          )
         );
       });
 
@@ -1893,7 +2296,7 @@
       );
     }
 
-    /* SUBCATEGORIAS */
+    /* BOTÕES DE SUBCATEGORIAS */
 
     function criarBotoesSubcategorias() {
       areaSubcategorias.replaceChildren();
@@ -1934,15 +2337,21 @@
         botao.type = "button";
         botao.dataset.subcategoria = opcao.valor;
 
-        botao.setAttribute("aria-controls", "catalogo");
+        botao.setAttribute(
+          "aria-controls",
+          "catalogo"
+        );
 
         botao.setAttribute(
           "aria-pressed",
-          String(subcategoriaAtual === opcao.valor)
+          String(
+            subcategoriaAtual === opcao.valor
+          )
         );
 
         botao.addEventListener("click", () => {
           subcategoriaAtual = opcao.valor;
+
           atualizarFiltros();
           mostrarProdutos();
         });
@@ -1957,174 +2366,65 @@
       catalogo.querySelectorAll("video").forEach(video => {
         video.pause();
       });
-    
+
       catalogo.replaceChildren();
       precosVisiveis = [];
-    
+
       const lista = produtos.filter(produto => {
         const correspondeCategoria =
           categoriaAtual === "todos" ||
           produto.categoria === categoriaAtual;
-    
+
         const correspondeSubcategoria =
           subcategoriaAtual === "todos" ||
           produto.subcategoria === subcategoriaAtual;
-    
+
         return correspondeCategoria && correspondeSubcategoria;
       });
-    
+
       let nomeFiltro =
         categoriaAtual === "todos"
           ? "Todas as categorias"
           : categoriaAtual;
-    
+
       if (subcategoriaAtual !== "todos") {
         nomeFiltro += ` / ${subcategoriaAtual}`;
       }
-    
+
       if (lista.length === 0) {
         resumo.textContent =
           `Nenhum item cadastrado neste filtro: ${nomeFiltro}.`;
-    
+
         return;
       }
-    
+
       resumo.textContent =
         `${lista.length} ${
           lista.length === 1 ? "item" : "itens"
         } · ${nomeFiltro}`;
-    
+
       lista.forEach((produto, indiceProduto) => {
-        const card = criarElemento("article", "produto");
-    
+        const card = criarElemento(
+          "article",
+          "produto"
+        );
+
         card.append(criarCarrossel(produto));
-    
-        const info = criarElemento("div", "informacoes");
-    
-        const categoriaExibida = produto.subcategoria
-          ? `${produto.categoria} · ${produto.subcategoria}`
-          : produto.categoria;
-    
-        info.append(
-          criarElemento("span", "categoria", categoriaExibida),
-          criarElemento("h2", "", produto.nome),
-          criarElemento("p", "descricao", produto.descricao)
-        );
-    
-        const variacoes = Array.isArray(produto.variacoes)
-          ? produto.variacoes
-          : [];
-    
-        const temVariacoes = variacoes.length > 0;
-    
-        const preco = criarElemento("p", "preco");
-        const forma = criarElemento("p", "preco-forma");
-    
-        // Anuncia o novo preço ao alterar a variação.
-        preco.setAttribute("aria-live", "polite");
-        preco.setAttribute("aria-atomic", "true");
-    
-        const desconto = criarElemento(
-          "span",
-          "preco-detalhe desconto",
-          "(5% de desconto)"
-        );
-    
-        desconto.hidden = obterPagamentoAtual() !== "pix";
-    
-        // A primeira variação fica selecionada inicialmente.
-        const referenciaPreco = {
+
+        const informacoes = criarInformacoesProduto(
           produto,
-          preco,
-          forma,
-          desconto,
-    
-          precoOriginal: temVariacoes
-            ? variacoes[0].preco
-            : produto.preco,
-    
-          variacaoSelecionada: temVariacoes
-            ? variacoes[0].nome
-            : ""
-        };
-    
-        precosVisiveis.push(referenciaPreco);
-    
-        if (temVariacoes) {
-          const areaVariacao = criarElemento(
-            "div",
-            "variacao-produto"
-          );
-    
-          const idSeletor = `variacao-produto-${indiceProduto}`;
-    
-          const label = criarElemento(
-            "label",
-            "",
-            "📏 Escolha a variação"
-          );
-    
-          label.htmlFor = idSeletor;
-    
-          const seletorVariacao = criarElemento("select");
-    
-          seletorVariacao.id = idSeletor;
-    
-          variacoes.forEach((variacao, indiceVariacao) => {
-            const opcao = criarElemento(
-              "option",
-              "",
-              variacao.nome
-            );
-    
-            opcao.value = String(indiceVariacao);
-    
-            seletorVariacao.append(opcao);
-          });
-    
-          seletorVariacao.addEventListener("change", () => {
-            const indiceSelecionado = Number(
-              seletorVariacao.value
-            );
-    
-            const variacao = variacoes[indiceSelecionado];
-    
-            if (!variacao) {
-              return;
-            }
-    
-            // Atualiza o preço-base, sem acumular acréscimos.
-            referenciaPreco.precoOriginal = variacao.preco;
-            referenciaPreco.variacaoSelecionada = variacao.nome;
-    
-            // Recalcula com a forma de pagamento atual.
-            atualizarPrecos();
-          });
-    
-          areaVariacao.append(label, seletorVariacao);
-          info.append(areaVariacao);
-        }
-    
-        info.append(preco, forma, desconto);
-    
-        // Mantém a disponibilidade do produto.
-        const status = obterDisponibilidade(produto);
-    
-        const areaDisponibilidade = criarElemento("div");
-    
-        areaDisponibilidade.append(
-          criarElemento(
-            "span",
-            `disponibilidade ${status.classe}`,
-            status.texto
-          )
+          false,
+          `card-${indiceProduto}`
         );
-    
-        info.append(areaDisponibilidade);
-        card.append(info);
+
+        precosVisiveis.push(
+          informacoes.referenciaPreco
+        );
+
+        card.append(informacoes.elemento);
         catalogo.append(card);
       });
-    
+
       atualizarPrecos();
     }
 
