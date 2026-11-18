@@ -16,10 +16,6 @@
   <title>Universo Pixelado | Catálogo</title>
 
   <style>
-    /* ====================================
-       CORES E ESTILOS GERAIS
-       ==================================== */
-
     :root {
       --fundo: #faf7ff;
       --texto: #302448;
@@ -40,11 +36,17 @@
       line-height: 1.5;
     }
 
-    button {
+    button,
+    select {
       font: inherit;
     }
 
-    button:focus-visible {
+    button {
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    select:focus-visible {
       outline: 3px solid #c62e7a;
       outline-offset: 4px;
     }
@@ -53,25 +55,15 @@
       display: none !important;
     }
 
-    /* ====================================
-       CABEÇALHO
-
-       A imagem deve estar em:
-       imagens/cabeçalho.png
-       ==================================== */
+    /* CABEÇALHO: SOMENTE LOGO E FUNDO */
 
     header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 36px 20px;
-      text-align: center;
+
       background-color: #e5d4ff;
-
-      /*
-        Camada clara leve.
-
-        Para tirar completamente a camada,
-        troque os dois valores 0.12 por 0.
-      */
-
       background-image:
         linear-gradient(
           rgba(250, 247, 255, 0.12),
@@ -82,24 +74,12 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-
       border-bottom: 3px solid var(--borda);
     }
 
-    .marca {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    /* Logo maior, sem caixa ou fundo. */
     .logo {
       width: 240px;
-      flex-shrink: 0;
+      max-width: 100%;
     }
 
     .logo img {
@@ -108,51 +88,16 @@
       height: auto;
     }
 
-    .marca-textos {
-      min-width: 0;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(30px, 5vw, 48px);
-      letter-spacing: -1px;
-
-      text-shadow:
-        0 1px 3px white,
-        0 0 14px rgba(255, 255, 255, 0.9);
-    }
-
-    .subtitulo {
-      margin: 8px 0 0;
-      color: var(--texto);
-      font-size: 18px;
-
-      text-shadow:
-        0 1px 3px white,
-        0 0 10px white;
-    }
-
-    .apresentacao {
-      max-width: 550px;
-      margin: 20px auto 0;
-      font-weight: 500;
-
-      text-shadow:
-        0 1px 3px white,
-        0 0 10px white;
-    }
-
-    /* ====================================
-       CATEGORIAS PRINCIPAIS
-       ==================================== */
-
     main {
       width: min(1100px, 100%);
       margin: auto;
       padding: 32px 20px 48px;
     }
 
-    .filtros {
+    /* CATEGORIAS */
+
+    .filtros,
+    .subcategorias {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -162,19 +107,12 @@
 
     .filtros button {
       padding: 12px 20px;
-
       background: white;
       color: var(--roxo);
-
       border: 2px solid var(--borda);
       border-radius: 12px;
-
       font-weight: bold;
-      cursor: pointer;
-
-      transition:
-        background 0.2s,
-        transform 0.2s;
+      transition: background 0.2s, transform 0.2s;
     }
 
     .filtros button:hover {
@@ -188,30 +126,18 @@
       color: white;
     }
 
-    /* ====================================
-       SUBCATEGORIAS
-       ==================================== */
-
     .subcategorias {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
       gap: 8px;
-
-      margin: -8px 0 24px;
+      margin-top: -8px;
     }
 
     .subcategorias button {
       padding: 10px 15px;
-
       background: white;
       color: var(--roxo);
-
       border: 1px solid var(--borda);
       border-radius: 20px;
-
       font-size: 14px;
-      cursor: pointer;
     }
 
     .subcategorias button:hover {
@@ -225,9 +151,50 @@
       font-weight: bold;
     }
 
-    /* ====================================
-       CATÁLOGO E CARDS
-       ==================================== */
+    /* SELETOR DE PAGAMENTO */
+
+    .pagamento {
+      max-width: 600px;
+      margin: 0 auto 26px;
+      padding: 20px;
+
+      background: white;
+      border: 1px solid var(--borda);
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .pagamento label {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--roxo);
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .pagamento select {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: var(--fundo);
+      color: var(--texto);
+      border: 2px solid var(--borda);
+      border-radius: 10px;
+    }
+
+    .pagamento-explicacao {
+      margin: 12px 0 0;
+      color: var(--suave);
+      font-size: 14px;
+    }
+
+    .pagamento-aviso {
+      margin: 8px 0 0;
+      color: var(--suave);
+      font-size: 12px;
+    }
+
+    /* CATÁLOGO */
 
     .resumo {
       margin: 0 0 24px;
@@ -238,10 +205,8 @@
 
     .catalogo {
       display: grid;
-
       grid-template-columns:
         repeat(auto-fill, minmax(min(100%, 280px), 1fr));
-
       gap: 24px;
       align-items: start;
     }
@@ -249,17 +214,13 @@
     .produto {
       min-width: 0;
       overflow: hidden;
-
       background: white;
       border: 1px solid var(--borda);
       border-radius: 18px;
-
       box-shadow: 0 6px 20px #30244808;
     }
 
-    /* ====================================
-       CARROSSEL DE FOTOS E VÍDEOS
-       ==================================== */
+    /* CARROSSEL */
 
     .carrossel {
       background: #f4edff;
@@ -277,12 +238,10 @@
     .carrossel-tela > .sem-midia {
       position: absolute;
       inset: 0;
-
       display: block;
       width: 100%;
       height: 100%;
       margin: 0;
-
       object-fit: contain;
     }
 
@@ -296,12 +255,9 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-
       padding: 24px;
       text-align: center;
-
-      background:
-        linear-gradient(135deg, #f0e5ff, #ffeaf3);
+      background: linear-gradient(135deg, #f0e5ff, #ffeaf3);
     }
 
     .sem-midia-emoji {
@@ -324,7 +280,6 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-
       padding: 10px 14px;
       border-top: 1px solid var(--borda);
     }
@@ -333,15 +288,11 @@
       width: 44px;
       height: 44px;
       flex-shrink: 0;
-
       background: white;
       color: var(--roxo);
-
       border: 1px solid var(--borda);
       border-radius: 10px;
-
       font-size: 22px;
-      cursor: pointer;
     }
 
     .carrossel-controles button:hover {
@@ -356,28 +307,21 @@
 
     .botao-ampliar {
       display: block;
-
       width: calc(100% - 28px);
       margin: 12px 14px;
       padding: 11px 14px;
-
       background: white;
       color: var(--roxo);
-
       border: 1px solid var(--borda);
       border-radius: 10px;
-
       font-weight: bold;
-      cursor: pointer;
     }
 
     .botao-ampliar:hover {
       background: #e5d4ff;
     }
 
-    /* ====================================
-       INFORMAÇÕES DOS PRODUTOS
-       ==================================== */
+    /* INFORMAÇÕES E PREÇOS */
 
     .informacoes {
       padding: 20px;
@@ -402,27 +346,45 @@
       margin: 0;
       color: var(--suave);
       font-size: 14px;
-
-      /* Preserva as quebras de linha. */
       white-space: pre-line;
       overflow-wrap: anywhere;
     }
 
     .preco {
-      margin: 20px 0 10px;
+      margin: 20px 0 4px;
       color: var(--roxo);
-      font-size: 24px;
+      font-size: 28px;
       font-weight: bold;
+    }
+
+    .preco-forma {
+      margin: 0 0 8px;
+      color: var(--suave);
+      font-size: 13px;
+    }
+
+    .preco-detalhe {
+      display: inline-block;
+      margin: 0 0 14px;
+      padding: 5px 9px;
+      background: #f0e7ff;
+      color: var(--roxo);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .preco-detalhe.desconto {
+      background: #e9f8ef;
+      color: #23623d;
     }
 
     .estoque {
       display: inline-block;
       padding: 5px 10px;
-
       background: #e9f8ef;
       color: #23623d;
       border-radius: 8px;
-
       font-size: 13px;
     }
 
@@ -431,26 +393,19 @@
       color: #9b3434;
     }
 
-    /* ====================================
-       GALERIA AMPLIADA
-       ==================================== */
+    /* GALERIA AMPLIADA */
 
     .modal-galeria {
       width: min(1000px, calc(100vw - 24px));
       max-width: none;
-
       max-height: calc(100vh - 24px);
       max-height: calc(100dvh - 24px);
-
       padding: 0;
       overflow: auto;
-
       background: white;
       color: var(--texto);
-
       border: 1px solid var(--borda);
       border-radius: 18px;
-
       box-shadow: 0 20px 70px #00000050;
     }
 
@@ -463,7 +418,6 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-
       padding: 16px 20px;
       border-bottom: 1px solid var(--borda);
     }
@@ -477,15 +431,11 @@
       width: 44px;
       height: 44px;
       flex-shrink: 0;
-
       background: #f0e7ff;
       color: var(--roxo);
-
       border: 1px solid var(--borda);
       border-radius: 10px;
-
       font-size: 24px;
-      cursor: pointer;
     }
 
     .modal-fechar:hover {
@@ -494,10 +444,8 @@
 
     .modal-galeria .carrossel-tela {
       aspect-ratio: auto;
-
       height: min(68vh, 700px);
       height: min(68dvh, 700px);
-
       background: #171020;
     }
 
@@ -509,36 +457,25 @@
       overflow: hidden;
     }
 
-    /* ====================================
-       RODAPÉ
-       ==================================== */
+    /* RODAPÉ */
 
     footer {
       padding: 24px 20px;
       text-align: center;
-
       color: var(--suave);
       border-top: 1px solid var(--borda);
-
       font-size: 14px;
     }
 
     footer p {
-      margin: 4px 0;
+      margin: 6px 0;
     }
 
-    /* ====================================
-       AJUSTES PARA CELULAR
-       ==================================== */
+    /* CELULAR */
 
     @media (max-width: 600px) {
       header {
         padding: 28px 16px;
-      }
-
-      .marca {
-        flex-direction: column;
-        gap: 14px;
       }
 
       .logo {
@@ -557,6 +494,18 @@
       .subcategorias button {
         padding: 9px 12px;
         font-size: 13px;
+      }
+
+      .pagamento {
+        padding: 16px;
+      }
+
+      .pagamento label {
+        font-size: 16px;
+      }
+
+      .pagamento select {
+        font-size: 16px;
       }
 
       .modal-cabecalho {
@@ -582,36 +531,17 @@
 </head>
 
 <body>
-  <!-- ====================================
-       CABEÇALHO DA LOJA
-       ==================================== -->
-
   <header>
-    <div class="marca">
-      <div class="logo">
-        <img
-          src="imagens/logo.png"
-          alt="Logo da Universo Pixelado"
-        >
-      </div>
-
-      <div class="marca-textos">
-        <h1>Universo Pixelado</h1>
-
-        <p class="subtitulo">
-          Uma lojinha daora ⌚
-        </p>
-      </div>
+    <div class="logo">
+      <img
+        src="imagens/logo.png"
+        alt="Universo Pixelado"
+      >
     </div>
-
-    <p class="apresentacao">
-      Explore nosso catálogo e encontre seus favoritos!
-      Confira fotos, vídeos, valores e disponibilidade.
-    </p>
   </header>
 
   <main>
-    <!-- CATEGORIAS PRINCIPAIS -->
+    <!-- CATEGORIAS -->
 
     <nav
       id="categorias"
@@ -664,14 +594,53 @@
       </button>
     </nav>
 
-    <!-- SUBCATEGORIAS -->
-
     <nav
       id="subcategorias"
       class="subcategorias"
-      aria-label="Subcategorias de chaveiros de acrílico"
+      aria-label="Subcategorias do catálogo"
       hidden
     ></nav>
+
+    <!-- FORMA DE PAGAMENTO -->
+
+    <div class="pagamento">
+      <label for="forma-pagamento">
+        💳 Escolha a forma de pagamento
+      </label>
+
+      <select
+        id="forma-pagamento"
+        aria-describedby="pagamento-explicacao pagamento-aviso"
+      >
+        <option value="pix">
+          PIX — (5% de desconto)
+        </option>
+
+        <option value="cartao">
+          Cartão (Apenas aproximação) — acréscimo de 5%
+        </option>
+
+        <option value="link">
+          Link de Pagamento (débito e crédito) — acréscimo de 2%
+        </option>
+      </select>
+
+      <p
+        id="pagamento-explicacao"
+        class="pagamento-explicacao"
+        role="status"
+      >
+        Os preços exibidos estão na opção PIX.
+      </p>
+
+      <p
+        id="pagamento-aviso"
+        class="pagamento-aviso"
+      >
+        Esta seleção apenas calcula os valores do catálogo.
+        Não realiza pagamento nem reserva produtos.
+      </p>
+    </div>
 
     <p
       id="resumo"
@@ -682,24 +651,32 @@
     <section
       id="catalogo"
       class="catalogo"
-      aria-label="Produtos"
+      aria-label="Produtos e serviços"
     ></section>
 
     <noscript>
       Ative o JavaScript do navegador para visualizar
-      os produtos do catálogo.
+      o catálogo e calcular os valores.
     </noscript>
   </main>
 
   <footer>
     <p>✦ Universo Pixelado ✦</p>
-    <p>✦ Aceitamos PIX, Dinheiro, Cartão (apenas aproximação) e Link de Pagamento (débito e crédito). ✦</p>
-    <p>✦ Para pagamentos com cartão/link de pagamento, será acrescida a taxa do cartão. ✦</p>
+    <p>
+      ✦ Aceitamos PIX, Dinheiro, Cartão (apenas aproximação)
+      e Link de Pagamento (débito e crédito). ✦
+    </p>
+    <p>
+      ✦ Cartão por aproximação: acréscimo de 5%.
+      Link de pagamento: acréscimo de 2%. ✦
+    </p>
+    <p>
+      ✦ Os valores exibidos já incluem o acréscimo
+      da forma de pagamento selecionada. ✦
+    </p>
   </footer>
 
-  <!-- ====================================
-       JANELA DA GALERIA AMPLIADA
-       ==================================== -->
+  <!-- GALERIA AMPLIADA -->
 
   <dialog
     id="modal-galeria"
@@ -727,13 +704,7 @@
 
   <script>
     /* ==========================================
-       CONFIGURAÇÃO DAS SUBCATEGORIAS
-
-       A chave abaixo deve ser igual ao nome
-       da categoria no botão e nos produtos.
-
-       Para adicionar outra subcategoria,
-       acrescente o nome à lista.
+       SUBCATEGORIAS
        ========================================== */
 
     const subcategoriasPorCategoria = {
@@ -747,37 +718,27 @@
     };
 
     /* ==========================================
-       CADASTRO DOS PRODUTOS
-
-       Categorias disponíveis:
-         "Chaveiros de Acrílico"
-         "Adesivos"
-         "Bottons"
-         "Papelaria"
-
-       subcategoria:
-         Use um dos nomes da lista acima
-         nos chaveiros de acrílico.
-
-       descricao:
-         Escreva entre crases para pular linhas.
+       PRODUTOS E SERVIÇOS
 
        preco:
-         Use ponto nos centavos: 15.00
+         Coloque sempre o preço ORIGINAL.
+
+         O site calcula automaticamente:
+         PIX: preço original.
+         Cartão: preço original + 5%.
+         Link: preço original + 2%.
+
+       Use ponto nos centavos, por exemplo:
+         preco: 15.00
+
+       O cálculo é feito por unidade, com
+       arredondamento para centavos.
 
        estoque:
-         Quantidade disponível.
          Use 0 para mostrar "Esgotado".
 
        midias:
-         Lista de fotos e vídeos.
-         Use [] se ainda não tiver arquivos.
-
-       tipo:
-         "imagem" ou "video".
-
-       arquivo:
-         Caminho exato da foto ou do vídeo.
+         Use [] se não houver fotos ou vídeos.
        ========================================== */
 
     const produtos = [
@@ -792,8 +753,9 @@
         preco: 0.50,
         estoque: 1000,
         emoji: "📄",
+        midias: []
       },
-      
+
       {
         nome: "Cópia Frente e Verso - Preto e Branco",
         categoria: "Papelaria",
@@ -805,6 +767,7 @@
         preco: 1.00,
         estoque: 1000,
         emoji: "📄",
+        midias: []
       },
 
       {
@@ -818,8 +781,9 @@
         preco: 1.00,
         estoque: 1000,
         emoji: "📄",
+        midias: []
       },
-      
+
       {
         nome: "Cópia Frente e Verso - Colorida",
         categoria: "Papelaria",
@@ -831,10 +795,11 @@
         preco: 2.00,
         estoque: 1000,
         emoji: "📄",
+        midias: []
       },
-      
+
       {
-      nome: "Digitalização",
+        nome: "Digitalização",
         categoria: "Papelaria",
 
         descricao: `🔎 QUANTIDADE: 1`,
@@ -842,8 +807,9 @@
         preco: 0.50,
         estoque: 1000,
         emoji: "📄",
+        midias: []
       },
-      
+
       {
         nome: "Manchester City",
         categoria: "Chaveiros de Acrílico",
@@ -915,7 +881,7 @@
           }
         ]
       },
-      
+
       {
         nome: "Volkswagen",
         categoria: "Chaveiros de Acrílico",
@@ -950,15 +916,38 @@
             arquivo: "videos/volkswagen.mp4"
           }
         ]
-      },
+      }
     ];
 
-    /* ==========================================
-       FUNCIONAMENTO DO SITE
+    /* CONFIGURAÇÃO DAS FORMAS DE PAGAMENTO */
 
-       Para cadastrar produtos, não precisa
-       alterar o código daqui para baixo.
-       ========================================== */
+    const formasPagamento = {
+      pix: {
+        nome: "PIX",
+        acrescimoPercentual: 0,
+        detalhe: "(5% de desconto)",
+        explicacao:
+          "Os preços exibidos estão na opção PIX, usando o preço original cadastrado."
+      },
+
+      cartao: {
+        nome: "Cartão (Apenas aproximação)",
+        acrescimoPercentual: 5,
+        detalhe: "Acréscimo de 5% já incluído",
+        explicacao:
+          "Os preços exibidos incluem 5% de acréscimo sobre o preço original."
+      },
+
+      link: {
+        nome: "Link de Pagamento (débito e crédito)",
+        acrescimoPercentual: 2,
+        detalhe: "Acréscimo de 2% já incluído",
+        explicacao:
+          "Os preços exibidos incluem 2% de acréscimo sobre o preço original."
+      }
+    };
+
+    /* ELEMENTOS DO SITE */
 
     const catalogo = document.querySelector("#catalogo");
     const resumo = document.querySelector("#resumo");
@@ -971,32 +960,32 @@
       "#subcategorias"
     );
 
-    const modalGaleria = document.querySelector(
-      "#modal-galeria"
+    const seletorPagamento = document.querySelector(
+      "#forma-pagamento"
     );
 
-    const modalTitulo = document.querySelector(
-      "#modal-titulo"
+    const explicacaoPagamento = document.querySelector(
+      "#pagamento-explicacao"
     );
 
-    const modalConteudo = document.querySelector(
-      "#modal-conteudo"
-    );
-
-    const modalFechar = document.querySelector(
-      "#modal-fechar"
-    );
+    const modalGaleria = document.querySelector("#modal-galeria");
+    const modalTitulo = document.querySelector("#modal-titulo");
+    const modalConteudo = document.querySelector("#modal-conteudo");
+    const modalFechar = document.querySelector("#modal-fechar");
 
     let categoriaAtual = "todos";
     let subcategoriaAtual = "todos";
+    let pagamentoAtual = seletorPagamento.value;
     let elementoQueAbriuGaleria = null;
+
+    // Guarda referências aos preços dos cards visíveis.
+    // Assim, trocar o pagamento não reinicia os carrosséis.
+    let precosVisiveis = [];
 
     const moeda = new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL"
     });
-
-    /* CRIA ELEMENTOS HTML */
 
     function criarElemento(tag, classe, texto) {
       const elemento = document.createElement(tag);
@@ -1012,13 +1001,50 @@
       return elemento;
     }
 
-    /* MENSAGEM PARA PRODUTOS SEM MÍDIA */
+    /* CÁLCULO DO PREÇO FINAL */
+
+    function calcularPrecoFinal(precoOriginal) {
+      const originalCentavos = Math.round(precoOriginal * 100);
+
+      const percentual =
+        formasPagamento[pagamentoAtual].acrescimoPercentual;
+
+      const finalCentavos = Math.round(
+        originalCentavos * (100 + percentual) / 100
+      );
+
+      return finalCentavos / 100;
+    }
+
+    function atualizarPrecos() {
+      const forma = formasPagamento[pagamentoAtual];
+
+      explicacaoPagamento.textContent = forma.explicacao;
+
+      precosVisiveis.forEach(item => {
+        item.preco.textContent = moeda.format(
+          calcularPrecoFinal(item.produto.preco)
+        );
+
+        item.forma.textContent = `Por unidade • ${forma.nome}`;
+        item.detalhe.textContent = forma.detalhe;
+
+        item.detalhe.classList.toggle(
+          "desconto",
+          pagamentoAtual === "pix"
+        );
+      });
+    }
+
+    seletorPagamento.addEventListener("change", () => {
+      pagamentoAtual = seletorPagamento.value;
+      atualizarPrecos();
+    });
+
+    /* MENSAGEM PARA ITENS SEM MÍDIA */
 
     function criarPlaceholder(produto, mensagem) {
-      const placeholder = criarElemento(
-        "div",
-        "sem-midia"
-      );
+      const placeholder = criarElemento("div", "sem-midia");
 
       const emoji = criarElemento(
         "span",
@@ -1039,9 +1065,7 @@
       return placeholder;
     }
 
-    /* ==========================================
-       ABRIR E FECHAR A GALERIA
-       ========================================== */
+    /* GALERIA AMPLIADA */
 
     function abrirGaleria(
       produto,
@@ -1066,7 +1090,6 @@
       );
 
       modalGaleria.showModal();
-
       document.body.classList.add("galeria-aberta");
     }
 
@@ -1076,12 +1099,8 @@
       }
     }
 
-    modalFechar.addEventListener(
-      "click",
-      fecharGaleria
-    );
+    modalFechar.addEventListener("click", fecharGaleria);
 
-    // Fecha quando a pessoa clica fora da janela.
     modalGaleria.addEventListener("click", evento => {
       if (evento.target !== modalGaleria) {
         return;
@@ -1100,14 +1119,12 @@
       }
     });
 
-    // Também executado ao fechar com a tecla Escape.
     modalGaleria.addEventListener("close", () => {
       modalConteudo.querySelectorAll("video").forEach(video => {
         video.pause();
       });
 
       modalConteudo.replaceChildren();
-
       document.body.classList.remove("galeria-aberta");
 
       if (
@@ -1122,27 +1139,17 @@
       elementoQueAbriuGaleria = null;
     });
 
-    /* ==========================================
-       CARROSSEL DE CADA PRODUTO
-       ========================================== */
+    /* CARROSSEL */
 
     function criarCarrossel(
       produto,
       permitirAmpliacao = true,
       indiceInicial = 0
     ) {
-      const carrossel = criarElemento(
-        "div",
-        "carrossel"
-      );
-
-      const tela = criarElemento(
-        "div",
-        "carrossel-tela"
-      );
+      const carrossel = criarElemento("div", "carrossel");
+      const tela = criarElemento("div", "carrossel-tela");
 
       carrossel.setAttribute("role", "group");
-
       carrossel.setAttribute(
         "aria-label",
         `Fotos e vídeos de ${produto.nome}`
@@ -1151,19 +1158,12 @@
       const midias = produto.midias || [];
 
       let indice = midias.length
-        ? Math.max(
-            0,
-            Math.min(indiceInicial, midias.length - 1)
-          )
+        ? Math.max(0, Math.min(indiceInicial, midias.length - 1))
         : 0;
 
       let botaoAmpliar = null;
 
-      const contador = criarElemento(
-        "span",
-        "carrossel-contador"
-      );
-
+      const contador = criarElemento("span", "carrossel-contador");
       contador.setAttribute("role", "status");
       contador.setAttribute("aria-atomic", "true");
 
@@ -1178,10 +1178,7 @@
 
         if (midias.length === 0) {
           tela.append(
-            criarPlaceholder(
-              produto,
-              "Fotos em breve ✨"
-            )
+            criarPlaceholder(produto)
           );
 
           return;
@@ -1192,13 +1189,8 @@
 
         if (midia.tipo === "video") {
           elemento = criarElemento("video");
-
           elemento.controls = true;
-
-          elemento.preload = permitirAmpliacao
-            ? "none"
-            : "metadata";
-
+          elemento.preload = permitirAmpliacao ? "none" : "metadata";
           elemento.playsInline = true;
 
           elemento.setAttribute(
@@ -1215,10 +1207,7 @@
             midia.descricao ||
             `Foto ${indice + 1} de ${produto.nome}`;
 
-          elemento.loading = permitirAmpliacao
-            ? "lazy"
-            : "eager";
-
+          elemento.loading = permitirAmpliacao ? "lazy" : "eager";
           elemento.decoding = "async";
 
           if (permitirAmpliacao) {
@@ -1226,96 +1215,63 @@
             elemento.title = "Clique para ampliar";
 
             elemento.addEventListener("click", () => {
-              abrirGaleria(
-                produto,
-                indice,
-                botaoAmpliar
-              );
+              abrirGaleria(produto, indice, botaoAmpliar);
             });
           }
         }
 
-        elemento.addEventListener(
-          "error",
-          () => {
-            // Não altera uma mídia que já foi trocada.
-            if (elemento.parentNode !== tela) {
-              return;
-            }
+        elemento.addEventListener("error", () => {
+          if (elemento.parentNode !== tela) {
+            return;
+          }
 
-            tela.replaceChildren(
-              criarPlaceholder(
-                produto,
-                "Não foi possível carregar esta mídia."
-              )
-            );
-          },
-          { once: true }
-        );
+          tela.replaceChildren(
+            criarPlaceholder(
+              produto,
+              "Não foi possível carregar esta mídia."
+            )
+          );
+        }, { once: true });
 
         tela.append(elemento);
         elemento.src = midia.arquivo;
 
-        const tipo =
-          midia.tipo === "video" ? "Vídeo" : "Foto";
-
         contador.textContent =
-          `${indice + 1} de ${midias.length} · ${tipo}`;
+          `${indice + 1} de ${midias.length} · ${
+            midia.tipo === "video" ? "Vídeo" : "Foto"
+          }`;
       }
 
       carrossel.append(tela);
 
       if (midias.length > 1) {
-        const controles = criarElemento(
-          "div",
-          "carrossel-controles"
-        );
+        const controles = criarElemento("div", "carrossel-controles");
 
-        const anterior = criarElemento(
-          "button",
-          "",
-          "❮"
-        );
-
+        const anterior = criarElemento("button", "", "❮");
         anterior.type = "button";
-
         anterior.setAttribute(
           "aria-label",
           `Mídia anterior de ${produto.nome}`
         );
 
-        const proximo = criarElemento(
-          "button",
-          "",
-          "❯"
-        );
-
+        const proximo = criarElemento("button", "", "❯");
         proximo.type = "button";
-
         proximo.setAttribute(
           "aria-label",
           `Próxima mídia de ${produto.nome}`
         );
 
         anterior.addEventListener("click", () => {
-          indice =
-            (indice - 1 + midias.length) % midias.length;
-
+          indice = (indice - 1 + midias.length) % midias.length;
           mostrarMidia();
         });
 
         proximo.addEventListener("click", () => {
           indice = (indice + 1) % midias.length;
-
           mostrarMidia();
         });
 
-        controles.append(
-          anterior,
-          contador,
-          proximo
-        );
-
+        controles.append(anterior, contador, proximo);
         carrossel.append(controles);
       }
 
@@ -1327,28 +1283,15 @@
         );
 
         botaoAmpliar.type = "button";
-
         botaoAmpliar.setAttribute(
           "aria-label",
           `Ampliar fotos e vídeos de ${produto.nome}`
         );
-
-        botaoAmpliar.setAttribute(
-          "aria-haspopup",
-          "dialog"
-        );
-
-        botaoAmpliar.setAttribute(
-          "aria-controls",
-          "modal-galeria"
-        );
+        botaoAmpliar.setAttribute("aria-haspopup", "dialog");
+        botaoAmpliar.setAttribute("aria-controls", "modal-galeria");
 
         botaoAmpliar.addEventListener("click", () => {
-          abrirGaleria(
-            produto,
-            indice,
-            botaoAmpliar
-          );
+          abrirGaleria(produto, indice, botaoAmpliar);
         });
 
         carrossel.append(botaoAmpliar);
@@ -1359,35 +1302,25 @@
       return carrossel;
     }
 
-    /* ==========================================
-       ATUALIZA O ESTADO DOS BOTÕES
-       ========================================== */
+    /* ESTADO DOS FILTROS */
 
     function atualizarFiltros() {
       botoesCategorias.forEach(botao => {
         botao.setAttribute(
           "aria-pressed",
-          String(
-            botao.dataset.categoria === categoriaAtual
-          )
+          String(botao.dataset.categoria === categoriaAtual)
         );
       });
 
-      areaSubcategorias
-        .querySelectorAll("button")
-        .forEach(botao => {
-          botao.setAttribute(
-            "aria-pressed",
-            String(
-              botao.dataset.subcategoria === subcategoriaAtual
-            )
-          );
-        });
+      areaSubcategorias.querySelectorAll("button").forEach(botao => {
+        botao.setAttribute(
+          "aria-pressed",
+          String(botao.dataset.subcategoria === subcategoriaAtual)
+        );
+      });
     }
 
-    /* ==========================================
-       CRIA AS SUBCATEGORIAS DA CATEGORIA ATUAL
-       ========================================== */
+    /* BOTÕES DAS SUBCATEGORIAS */
 
     function criarBotoesSubcategorias() {
       areaSubcategorias.replaceChildren();
@@ -1419,20 +1352,11 @@
       ];
 
       opcoes.forEach(opcao => {
-        const botao = criarElemento(
-          "button",
-          "",
-          opcao.texto
-        );
+        const botao = criarElemento("button", "", opcao.texto);
 
         botao.type = "button";
         botao.dataset.subcategoria = opcao.valor;
-
-        botao.setAttribute(
-          "aria-controls",
-          "catalogo"
-        );
-
+        botao.setAttribute("aria-controls", "catalogo");
         botao.setAttribute(
           "aria-pressed",
           String(subcategoriaAtual === opcao.valor)
@@ -1440,7 +1364,6 @@
 
         botao.addEventListener("click", () => {
           subcategoriaAtual = opcao.valor;
-
           atualizarFiltros();
           mostrarProdutos();
         });
@@ -1449,9 +1372,7 @@
       });
     }
 
-    /* ==========================================
-       FILTRA E EXIBE OS PRODUTOS
-       ========================================== */
+    /* EXIBIÇÃO DOS PRODUTOS */
 
     function mostrarProdutos() {
       catalogo.querySelectorAll("video").forEach(video => {
@@ -1459,6 +1380,7 @@
       });
 
       catalogo.replaceChildren();
+      precosVisiveis = [];
 
       const lista = produtos.filter(produto => {
         const correspondeCategoria =
@@ -1469,10 +1391,7 @@
           subcategoriaAtual === "todos" ||
           produto.subcategoria === subcategoriaAtual;
 
-        return (
-          correspondeCategoria &&
-          correspondeSubcategoria
-        );
+        return correspondeCategoria && correspondeSubcategoria;
       });
 
       let nomeFiltro =
@@ -1486,94 +1405,77 @@
 
       if (lista.length === 0) {
         resumo.textContent =
-          `Nenhum produto cadastrado neste filtro: ${nomeFiltro}.`;
+          `Nenhum item cadastrado neste filtro: ${nomeFiltro}.`;
 
+        atualizarPrecos();
         return;
       }
 
-      const palavraProduto =
-        lista.length === 1 ? "produto" : "produtos";
-
       resumo.textContent =
-        `${lista.length} ${palavraProduto} · ${nomeFiltro}`;
+        `${lista.length} ${lista.length === 1 ? "item" : "itens"} · ${nomeFiltro}`;
 
       lista.forEach(produto => {
-        const card = criarElemento(
-          "article",
-          "produto"
-        );
+        const card = criarElemento("article", "produto");
 
         card.append(criarCarrossel(produto));
 
-        const info = criarElemento(
-          "div",
-          "informacoes"
-        );
+        const info = criarElemento("div", "informacoes");
 
         const categoriaExibida = produto.subcategoria
           ? `${produto.categoria} · ${produto.subcategoria}`
           : produto.categoria;
 
+        const preco = criarElemento("p", "preco");
+        const forma = criarElemento("p", "preco-forma");
+        const detalhe = criarElemento("span", "preco-detalhe");
+
         info.append(
-          criarElemento(
-            "span",
-            "categoria",
-            categoriaExibida
-          ),
-
-          criarElemento(
-            "h2",
-            "",
-            produto.nome
-          ),
-
-          criarElemento(
-            "p",
-            "descricao",
-            produto.descricao
-          ),
-
-          criarElemento(
-            "p",
-            "preco",
-            moeda.format(produto.preco)
-          )
+          criarElemento("span", "categoria", categoriaExibida),
+          criarElemento("h2", "", produto.nome),
+          criarElemento("p", "descricao", produto.descricao),
+          preco,
+          forma,
+          detalhe
         );
 
+        precosVisiveis.push({
+          produto,
+          preco,
+          forma,
+          detalhe
+        });
+
         const disponivel = produto.estoque > 0;
-        let textoEstoque = "Esgotado";
 
-        if (disponivel) {
-          textoEstoque =
-            produto.estoque === 1
-              ? "1 unidade disponível"
-              : `${produto.estoque} unidades disponíveis`;
-        }
+        const textoEstoque = disponivel
+          ? produto.estoque === 1
+            ? "1 unidade disponível"
+            : `${produto.estoque} unidades disponíveis`
+          : "Esgotado";
 
-        info.append(
+        const areaEstoque = criarElemento("div");
+
+        areaEstoque.append(
           criarElemento(
             "span",
-            disponivel
-              ? "estoque"
-              : "estoque esgotado",
+            disponivel ? "estoque" : "estoque esgotado",
             textoEstoque
           )
         );
 
+        info.append(areaEstoque);
         card.append(info);
         catalogo.append(card);
       });
+
+      atualizarPrecos();
     }
 
-    /* ==========================================
-       CLIQUES NAS CATEGORIAS PRINCIPAIS
-       ========================================== */
+    /* CLIQUES NAS CATEGORIAS */
 
     botoesCategorias.forEach(botao => {
       botao.addEventListener("click", () => {
         categoriaAtual = botao.dataset.categoria;
-
-        // Limpa a subcategoria ao trocar de categoria.
         subcategoriaAtual = "todos";
 
         criarBotoesSubcategorias();
@@ -1582,9 +1484,7 @@
       });
     });
 
-    /* ==========================================
-       INICIALIZAÇÃO
-       ========================================== */
+    /* INICIALIZAÇÃO */
 
     criarBotoesSubcategorias();
     atualizarFiltros();
